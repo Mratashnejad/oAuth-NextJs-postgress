@@ -1,0 +1,143 @@
+//prisma installation 
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// User model with added Wallet relationship
+model User {
+  id              String      @id @default(auto()) @map("_id") @db.ObjectId
+  name            String?
+  email           String?     @unique
+  hashedPassword  String?
+  emailVerified   DateTime?
+  image           String?     // Avatar image URL
+  bio             String?     // User biography
+  fullName        String?     // Full name
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  // Relationships
+  addresses       Address[]   // One-to-many relationship with Address model
+  jobs            Job[]       // One-to-many relationship with Job model
+  sessions        Session[]   // One-to-many relationship with Session model
+  languages       Language[]  // Many-to-many relationship with Language model
+  reviews         Review[]    // One-to-many relationship with Review model
+  promotions      Promotion[] // One-to-many relationship with Promotion model
+  labels          Label[]     // Many-to-many relationship with Label model
+  wallet          Wallet?     // One-to-one relationship with Wallet model
+}
+
+// Wallet model to handle user finances
+model Wallet {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  balance   Float    @default(0)  // Current balance in the wallet
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Define the relationship to the User model (one-to-one)
+  user      User?    @relation(fields: [userId], references: [id])
+
+  // Define userId as a foreign key referencing User's id and mark it as unique
+  userId    String   @db.ObjectId @unique
+}
+
+// Address model to represent user addresses
+model Address {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  city      String?
+  state     String?
+  street    String?
+  apartment String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relationships
+  user      User      @relation(fields: [userId], references: [id])
+}
+
+// Job model representing user jobs/experiences
+model Job {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String   @db.ObjectId
+  name       String?
+  experience String?
+  summary    String?
+  price      String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // Relationships
+  user       User      @relation(fields: [userId], references: [id])
+}
+
+// Language model representing user languages
+model Language {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String   @db.ObjectId
+  name       String?
+  level      String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // Relationships
+   // Define the relationship to the User model (many Languages belong to one user)
+  user       User     @relation(fields: [userId], references: [id])
+}
+
+// Review model for user reviews
+model Review {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String   @db.ObjectId
+  rating     Int?
+  comment    String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // Relationships
+  user       User      @relation(fields: [userId], references: [id])
+}
+
+// Promotion model for user promotions
+model Promotion {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String   @db.ObjectId
+  type       String?
+  amount     Float?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // Relationships
+  user       User      @relation(fields: [userId], references: [id])
+}
+
+// Label model for user labels
+model Label {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String   @db.ObjectId
+  name       String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // Define the relationship to the User model (many labels belong to one user)
+  user       User     @relation(fields: [userId], references: [id])
+}
+
+// Session model for user sessions
+model Session {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  sessionToken String   @unique
+  expires      DateTime
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relationships
+  user         User      @relation(fields: [userId], references: [id])
+  userId       String    @db.ObjectId
+}

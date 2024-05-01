@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-
 import Header from '@/components/header'
 import Footer from '@/components/footer'
 import { ThemeProvider } from '@/components/theme-provider'
 
 import './globals.css'
+
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -13,17 +13,17 @@ export const metadata: Metadata = {
   description: 'Find the best professionals for any job efficiently and locally'
 }
 
-export default function RootLayout({
-  children
-}: Readonly<{
+interface RootLayoutProps {
   children: React.ReactNode
-}>) {
+  pathname?: string // Optional pathname prop to conditionally render Header
+}
+
+export default function RootLayout({ children, pathname }: RootLayoutProps) {
+  const isDashboard = pathname === '/dashboard'
+  const isAdmin = pathname === 'Administrator-page'
+
   return (
-    <html
-      lang='en'
-      className='scroll-smooth antialiased'
-      suppressHydrationWarning
-    >
+    <html lang='en' className='scroll-smooth antialiased' suppressHydrationWarning>
       <body className={`flex min-h-screen flex-col ${inter.className}`}>
         <ThemeProvider
           enableSystem
@@ -31,8 +31,8 @@ export default function RootLayout({
           defaultTheme='system'
           disableTransitionOnChange
         >
-          <Header />
-          <main className='grow'>{children}</main>
+          {!isDashboard && <Header />}
+          <main className='flex-grow'>{children}</main>
           <Footer />
         </ThemeProvider>
       </body>
