@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardContent, CardTitle, CardDescription } from '@/components/ui/card';
-import { CodeXml, Construction, Car, Syringe, Cake } from 'lucide-react';
+import { CodeXml, Construction, Car, Syringe, CalendarHeart } from 'lucide-react';
 
 const components = [
   {
@@ -19,7 +19,7 @@ const components = [
     title: "Event planning",
     href: "/categories/assemblies-events",
     description: "Assembeling events",
-    icon: <Cake size={56} />,
+    icon: <CalendarHeart size={56} />,
   },
   {
     title: "Construction Works",
@@ -45,11 +45,12 @@ const ImageMenu = () => {
               <div className="mb-2">
                 {component.icon}
               </div>
-              <CardContent className="p-2 text-center">
-                <CardTitle className="text-lg font-semibold">{component.title}</CardTitle>
-                <CardDescription className="text-sm text-gray-900">{component.description}</CardDescription>
-              </CardContent>
+              
+
             </Card>
+            <CardContent className="p-2 text-center">
+                <CardTitle className="text-lg font-semibold">{component.title}</CardTitle>
+              </CardContent>
           </a>
         ))}
       </div>
