@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from 'react';
 import { Input } from '@/components/ui/input';
+import { Button } from './ui/button';
 import { Search } from 'lucide-react';
 import armenianCitiesData from '@/public/data/armenian-cities.json'
 
@@ -87,12 +88,12 @@ export function SearchMenu() {
             placeholder="Search for your best expert..."
             className="w-80 md:w-96"
           />
-          <button
+          <Button
             className="ml-2 p-2 text-gray-500 border border-gray-300 rounded-md hover:bg-gray-100 transition-colors focus:outline-none"
             aria-label="Search"
           >
             <Search className="h-6 w-6" />
-          </button>
+          </Button>
         </div>
       </div>
     </div>

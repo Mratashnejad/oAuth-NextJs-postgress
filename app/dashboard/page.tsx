@@ -1,4 +1,10 @@
+'use client'
 import RootLayout from  '@/app/layout'
+
+import {useRouter} from 'next/navigation'
+import {useEffect , useState} from 'react';
+//firebase
+import {useAuth} from '@/app/context/AuthContext';
 
 import Link from "next/link"
 import { CircleUser, Menu, Package2, Search } from "lucide-react"
@@ -26,7 +32,42 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 
 const pathname = '/dashboard'
 
+
+
+interface UserData {
+  uid : string;
+  phoneNumber:string | null;
+}
+
+
+
+
 export default function Dashboard() {
+  const {user ,signInWithPhone , logOut } = useAuth()
+
+  const router = useRouter();
+  const [userData, setUserData] = useState<UserData | null>(null);
+
+ useEffect(()=>{
+  if(user){
+    const {uid , phoneNumber} = user;
+    setUserData ({uid , phoneNumber});
+  }else{
+    setUserData(null);
+  }
+
+ } , [user]);
+
+ 
+  const handleLogout = async () => {
+    try {
+      await logOut()
+      router.push('/');
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
+  };
+
   return (
     <RootLayout pathname={pathname}>
     <div className="flex min-h-screen w-full flex-col">
@@ -139,13 +180,14 @@ export default function Dashboard() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuItem>Support</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Logout</DropdownMenuItem>
-            </DropdownMenuContent>
+            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuLabel>{userData && userData.phoneNumber}</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>Settings</DropdownMenuItem>
+            <DropdownMenuItem>Support</DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
+          </DropdownMenuContent>
           </DropdownMenu>
         </div>
       </header>
