@@ -14,7 +14,15 @@ const JobSchema = new Schema ({
     description : {type : String},
     workingHours : {type : String},
     
-    
+    // Wallet reference
+    wallet: { type: mongoose.Schema.Types.ObjectId, ref: 'Wallet' },
+
+    // Badges
+    badges: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Badge' }],
+
+    //Transactions
+    transaction : [{type : mongoose.Schema.type.ObjectId , ref: 'Transaction'}],
+
     //status
     status : {type : String ,
         eunm :[
