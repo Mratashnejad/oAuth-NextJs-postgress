@@ -1,7 +1,6 @@
-import mongoose, {Schema , model } from 'mongoose';
-import UserAddressSchema from './UserAddressSchema'
+import mongoose from 'mongoose';
 
-const UserSchema = new Schema ({
+const UserSchema = new mongoose.Schema ({
 
     uid:{ type:String , require : true ,unique : true}, //Firebase UID
     // email : {type : String , unique : true},
@@ -16,8 +15,7 @@ const UserSchema = new Schema ({
     bio : {type : String},
 
     // user Address
-    addresses: [UserAddressSchema],
-
+    addresses: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Address' }], // Reference to Address model
     //user Categoreis
     selectedCategories : [
         {
@@ -74,7 +72,6 @@ const UserSchema = new Schema ({
     
 )
 
-
-const User = mongoose.model('User' , UserSchema)
+const User = mongoose.models.User || mongoose.model('User', UserSchema);
 
 export default User;

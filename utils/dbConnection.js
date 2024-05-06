@@ -14,7 +14,7 @@ export const connectToDB = async ()=>{
 
     }
     try {
-        await mongoose.connect(process.env.mongoURI ,{
+        await mongoose.connect(process.env.DATABASE_URI ,{
             dbName : 'Gtnelu_DB'
         });
 

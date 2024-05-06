@@ -8,7 +8,8 @@ const JobSchema = new Schema ({
     categoryId : {type : mongoose.Schema.ObjectId , ref : 'Category' , require :true},
    
     // address
-    selectedAddress : {type :mongoose.Schema.ObjectId , ref : 'Address' , require : true},
+    addresses: {type : mongoose.Schema.ObjectId , ref :'address'},
+
     //// other details
     price      : {type : Number},
     description : {type : String},

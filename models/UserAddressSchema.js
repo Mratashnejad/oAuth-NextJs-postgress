@@ -1,7 +1,7 @@
-import {Schema , model} from 'mongoose'
+import mongoose from 'mongoose';
 
-const  UserAddressSchema = new Schema ({
-    uid : {type : String , require : true , uniqe : true},
+const UserAddressSchema = new mongoose.Schema({
+    uid: { type: String, required: true, unique: true },
     city: { type: String },
     country: { type: String },
     state: { type: String },
@@ -11,9 +11,8 @@ const  UserAddressSchema = new Schema ({
     apartment: { type: String },
     houseNumber: { type: String },
     doorColor: { type: String },
-    details : {type : String},
-})
+    details: { type: String },
+});
 
-const Address = mongoose.model('Address' , UserAddressSchema)
-
-export default Address
+const Address = mongoose.models.Address || mongoose.model('Address', UserAddressSchema);
+export default Address;

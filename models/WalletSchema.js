@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const WalletSchema = new mongoose.Schema({
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', require: true },
     balance: { type: Number, default: 0 },
     transactions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Transaction' }],
 });

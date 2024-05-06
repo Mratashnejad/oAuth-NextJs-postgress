@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 
 const CustomerFeedbackSchema = new mongoose.Schema({
-    customerId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // Reference to the customer being rated
-    reviewerId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // Reference to the user providing the feedback
+    customerId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', require: true }, // Reference to the customer being rated
+    reviewerId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', require: true }, // Reference to the user providing the feedback
     politeness: { type: Boolean, default: false }, // Whether the customer was polite
     odorless: { type: Boolean, default: false }, // Whether the customer had no malodor
     cleanliness: { type: Boolean, default: false }, // Whether the customer's place was clean
