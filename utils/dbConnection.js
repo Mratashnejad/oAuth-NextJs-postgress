@@ -1,30 +1,29 @@
-const mongoose = require ('mongoose')
+const mongoose = require('mongoose');
 
-//Connect to MONGODB
+// Connect to MONGODB
 
 let isConnected = false;
 
-export const connectToDB = async ()=>{
-    mongoose.set('strictQuery' , ture)
+export const connectToDB = async () => {
+    mongoose.set('strictQuery', true); 
 
-    //check
-    if (isConnected){
-        console.log('MongoDB is Already Connected')
+    // Check
+    if (isConnected) {
+        console.log('MongoDB is Already Connected');
         return mongoose.connection;
-
     }
+
     try {
-        await mongoose.connect(process.env.DATABASE_URI ,{
-            dbName : 'Gtnelu_DB'
+        await mongoose.connect(process.env.DATABASE_URI, {
+            dbName: 'Gtnelu_DB'
         });
 
-        isConnected = ture;
+        isConnected = true;
         console.log('MongoDB is Connected');
         return mongoose.connection;
-        
-    } catch (error) {
-        console.error('Failed to Connecting to MongoDB' , error)
-        throw error;
 
+    } catch (error) {
+        console.error('Failed to Connecting to MongoDB', error);
+        throw error;
     }
-}
+};
