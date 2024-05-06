@@ -1,7 +1,7 @@
   'use client'
   import React , { useState , useEffect} from 'react';
   import {getAuth , RecaptchaVerifier , signInWithPhoneNumber } from 'firebase/auth'
-  import {auth} from '../config'
+  import {app} from '../config'
   import { useRouter } from 'next/navigation';
 
   export default function Login(){
@@ -10,7 +10,7 @@
       const [confirmationResult , setConfirmationResult] = useState(null)
       const [otpSent , setOtpSent] = useState(false)
 
-      // const auth = getAuth(auth);
+      const auth = getAuth(app);
       const router = useRouter();
 
       useEffect(()=>{
@@ -22,7 +22,7 @@
 
       },);
 
-      const authInstance = getAuth(auth)
+   
 
       const handlePhoneNumberChange = (e)=>{
           setPhoneNumber(e.target.value);
