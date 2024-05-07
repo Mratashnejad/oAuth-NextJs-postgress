@@ -1,16 +1,17 @@
 import { connectToDB } from '../../../utils/dbConnection.js';
 import User from '../../../models/UserSchema';
 import { NextResponse } from 'next/server.js';
+import { useAuth } from '@/app/context/AuthContext.js';
 
-// Export a named function for API requests
 
-export async function POST (request) {
+export async function PATCH (request) {
   console.log('Received request at /api/users/');
   console.log('Request method:', request.method);
 try {
-  
-  const { uid, phoneNumber, email, name, family, avatar, bio } = await request.json()
-
+    // const auth = useAuth();
+    // const uid  = auth.uid = await request.json()
+    // const phoneNumber = auth.phoneNumber = await request.json()
+    const { uid,phoneNumber , email, name, family, avatar, bio } = await request.json()
   // Connect to the database
   await connectToDB();
 
