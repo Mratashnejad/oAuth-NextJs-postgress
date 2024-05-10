@@ -3,34 +3,25 @@ import User from '../../../../models/UserSchema'
 import { NextResponse } from 'next/server.js';
 import { useAuth } from '@/app/context/AuthContext.js';
 
-export async function PUT(request,{params}) {
+export async function PATCH(request,{params}) {
     console.log('Received request at /api/users/');
     console.log('Request method:', request.method);
   try {
         const {id} = params;
-        const { newPhoneNumber, newEmail, newName, newFamily, newAvatar, newBio } = request.json();
-
-
-
-        // const { newPhoneNumber  :phoneNumber,
-        //         newEmail        :email,
-        //         newName         :name,
-        //         newFamily       :family,
-        //         newAvatar       :avatar,
-        //         newBio          :bio,
-        // } = request.json();
-   
-    // Connect to the database
+        const {uid,phoneNumber , email, name, family, avatar, bio } = await request.json()
+        // Connect to the database
     await connectToDB();
-    // const user = await User.findOne({})
 
-    const updatedUser = await User.findByIdAndUpdate({ _id: id }, { phoneNumber: newPhoneNumber, email: newEmail, name: newName, family: newFamily, avatar: newAvatar, bio: newBio }, { new: true });
+        //Update User by the fields that changed
+        const updatedUser = await User.findByIdAndUpdate(id, 
+        {uid,phoneNumber , email, name, family, avatar, bio } ,
+        {new:true})
 
     if (!updatedUser) {
       return NextResponse.json({ message: 'User not found' }, { status: 404 });
     }
     // await User.findByIdAndUpdate({_id:id }, { phoneNumber: newPhoneNumber, email: newEmail, name: newName, family: newFamily, avatar: newAvatar, bio: newBio }, { new: true });
-    return NextResponse.json({message:'User Updated'}, {status:200})
+    return NextResponse.json({message:'User Updated',updatedUser}, {status:200})
 
   }catch (error) {
     // Handle any errors

@@ -8,15 +8,11 @@ export async function POST(request) {
   console.log('Received request at /api/users/');
   console.log('Request method:', request.method);
 try {
-    // const auth = useAuth();
-    // const uid  = auth.uid = await request.json()
-    // const phoneNumber = auth.phoneNumber = await request.json()
     const {uid,phoneNumber , email, name, family, avatar, bio } = await request.json()
+
   // Connect to the database
   await connectToDB();
-
   await User.create({uid, phoneNumber, email, name, family, avatar, bio});
-
   return NextResponse.json({message:'User Created'} , {status:201})
 
 
@@ -45,11 +41,11 @@ export async function GET(request){
 
 
 //Delete User
-export async function Delete(request){
+export async function DELETE(request){
   try{
   console.log('Received request at /api/users/');
   console.log('Request method:', request.method);
-  const id = request.nextUrl.searchParams.GET('id');
+  const id = request.nextUrl.searchParams.get('id');
   await connectToDB();
   await User.findByIdAndDelete(id);
   return NextResponse.json({message : 'User has been deleted Successfuly' , status:201});

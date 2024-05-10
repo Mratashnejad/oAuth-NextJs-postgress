@@ -64,14 +64,12 @@ const UserSchema = new mongoose.Schema ({
     },
 
 
-    //TimeStamps:
-    createAt : {type : Date , default : Date.now},
-    updateAt : {type : Date , default : Date.now},
-    },
-
-    
-)
-
+       // Timestamps
+       createdAt: { type: Date, default: Date.now },
+       updatedAt: { type: Date, default: Date.now },
+   }, { timestamps: true } // Enable automatic management of createdAt and updatedAt
+); 
+   
 const User = mongoose.models.User || mongoose.model('User', UserSchema);
 
 export default User;
