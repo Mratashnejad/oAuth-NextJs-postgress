@@ -1,5 +1,6 @@
 import { connectToDB}   from '../../../utils/dbConnection';
 import Category from '../../../models/CategorySchema';
+import SubCategory from '@/models/SubCategorySchema';
 import { NextResponse } from 'next/server';
 import  generateSlug  from '../../../utils/slugGenerator';
 
@@ -15,6 +16,13 @@ export  async function POST(request){
         const slug = generateSlug(name);
         //connect to database.
         await   connectToDB();
+
+            //check if subcategory is exists with the same name :
+        const existingCategory = await Category.findOne({name, slug:slug});
+            if(existingCategory){
+                return NextResponse.json({message: 'Subcategory already exists'} , {status:400})
+    
+            }
         await   Category.create({name,slug,subcategories})
         return  NextResponse.json({message:'Category Created'}, {status:201})
 

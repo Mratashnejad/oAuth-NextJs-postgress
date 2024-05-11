@@ -1,18 +1,11 @@
-import mongoose from "mongoose";
-
-const SubCategorySchema = new mongoose.Schema({
-    name : {type :String , require : true},
-    slug :  {type :String }
-})
-
+import mongoose from 'mongoose';
 
 const CategorySchema = new mongoose.Schema({
-    name : {type:String , require : true},
-    slug : {type :String},
-    subcategories : [SubCategorySchema],
+    name: { type: String, required: true },
+    slug: { type: String, required: true },
+    subcategories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'SubCategory' }]
+});
 
-})
-
-const Category =    mongoose.model.Category|| mongoose.model('Category' , CategorySchema)
+const Category = mongoose.models.Category || mongoose.model('Category', CategorySchema);
 
 export default Category;

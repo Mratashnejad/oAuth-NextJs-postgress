@@ -1,9 +1,8 @@
 // utils/addSlug.js
-
-const mongoose = require("mongoose");
-const Category = require('../models/CategorySchema');
-const generateSlug = require('./slugGenerator');
-const { connectToDB } = require('./dbConnection');
+import mongoose from "mongoose";
+import Category from "../models/CategorySchema.js";
+import generateSlug from "./slugGenerator.js";
+import { connectToDB } from "./dbConnection.js";
 
 async function addSlug(){
     try {
@@ -16,7 +15,6 @@ async function addSlug(){
             // Update each category with the generated slug
             await Category.findByIdAndUpdate(category._id, { slug });
         }
-
         console.log('Slugs added to categories successfully!');
     } catch(error) {
         console.error('Error:', error);

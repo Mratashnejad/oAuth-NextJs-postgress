@@ -8,6 +8,10 @@ export async function POST(request) {
   console.log('Received request at /api/users/');
   console.log('Request method:', request.method);
 try {
+    //implement UID AND PHONE NUMBER FROM FIREBASE ***********************************
+    //here
+    //implement UID AND PHONE NUMBER FROM FIREBASE ***********************************
+
     const {uid,phoneNumber , email, name, family, avatar, bio } = await request.json()
 
     // Connect to the database
