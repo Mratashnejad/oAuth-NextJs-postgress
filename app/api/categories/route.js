@@ -1,6 +1,6 @@
 import { connectToDB}   from '../../../utils/dbConnection';
-import Category from '../../../models/CategorySchema';
-import SubCategory from '@/models/SubCategorySchema';
+import Category from '../../../models/CategorySchema'
+import SubCategory  from    '../../../models/SubCategorySchema';
 import { NextResponse } from 'next/server';
 import  generateSlug  from '../../../utils/slugGenerator';
 
@@ -12,18 +12,11 @@ export  async function POST(request){
 
     
     try {
-        const {name,subcategories } = await request.json();
-        const slug = generateSlug(name);
+        const {name,slug} = await request.json();
+
         //connect to database.
         await   connectToDB();
-
-            //check if subcategory is exists with the same name :
-        const existingCategory = await Category.findOne({name, slug:slug});
-            if(existingCategory){
-                return NextResponse.json({message: 'Subcategory already exists'} , {status:400})
-    
-            }
-        await   Category.create({name,slug,subcategories})
+        await   Category.create({name,slug});
         return  NextResponse.json({message:'Category Created'}, {status:201})
 
     } catch (error) {
@@ -37,8 +30,8 @@ export async function GET (request){
     console.log('Request method:', request.method);
     try {
         await   connectToDB();
-        const   Categoreis = await Category.find();
-        return  NextResponse.json({Categoreis} , {status:201})
+        const   categories = await Category.find()
+        return  NextResponse.json({categories} , {status:201})
         
     } catch (error) {
         console.error('Error : ' , error);
