@@ -22,7 +22,7 @@ export async function POST(request,{params}){
         const   savedSubCategory = await newSubCategory.save()
 
         // Find the corresponding category and push the subcategory ID into subcategories array
-        const category = await Category.findOne({slug});
+        const category      = await Category.findOne({slug});
         if (!category) {
             throw new Error('Category not found');
         }
@@ -49,9 +49,9 @@ export async function GET(request,{params}){
     try {
         const   {slug} = params;
         await   connectToDB();
-        const   category = await Category.findOne({slug}).populate({path : 'subcategories'})
+        const   category        = await Category.findOne({slug}).populate({path : 'subcategories'})
         if(!category){
-            throw new Error('Category not Found')
+            NextResponse.json({message : 'Category not Found'} , {status:401});
         }
 
         //const   subCategory = await SubCategory.find({slug}).populate('CategorySlug');
@@ -62,4 +62,45 @@ export async function GET(request,{params}){
     }
 }
 
+export async function DELETE(request,{params}){
+    console.log('Received request at /api/category/[slug]')
+    console.log('Request method' ,request.method);
+    try {
+        const   {slug}  =  params;
+        await   connectToDB();
+        const   subCategory        = await SubCategory.findOne({subCategorySlug : slug});
+        if(!subCategory){
+            NextResponse.json({message : 'Subcategory not Found'} , {status:401});
+        }
+        await   SubCategory.findByIdAndDelete(subCategory._id);
+        return  NextResponse.json({message : 'Sub category deleted successfully'} , {status:200})
+    } catch (error) {
+        console.error("Error" , error);
+        return NextResponse.json({message : 'Faild to delete subcategory'} , {status:500});
+    }
+}
 
+export async function PATCH(request,{params}){
+    console.log('Received request at /api/category/[slug]')
+    console.log('Request method' ,request.method);
+    try {
+        const   {slug} = params;
+        const   requestData         = await request.json();
+        await   connectToDB();
+
+        const updatedSubCategory    = await SubCategory.findByIdAndUpdate(
+            {subCategorySlug : slug} ,
+            {$set:requestData} ,// Update the subcategory with the data provided in the request body
+            {new : true} // Update the subcategory with the data provided in the request body
+        )
+
+        if(!updatedSubCategory){
+            return NextResponse.json({message:"Subcategory not Found"} , {status:404})
+        }
+        return NextResponse.json({message:'Subcategory updated successfully' ,updatedSubCategory} , {status:200})
+
+    } catch (error) {
+        console.error('Error:', error);
+        return NextResponse.json({ message: 'Failed to update subcategory', status: 500 });
+    }
+}
