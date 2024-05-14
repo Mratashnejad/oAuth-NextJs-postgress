@@ -80,27 +80,27 @@ export async function DELETE(request,{params}){
     }
 }
 
-export async function PATCH(request,{params}){
-    console.log('Received request at /api/category/[slug]')
-    console.log('Request method' ,request.method);
-    try {
-        const   {slug} = params;
-        const   requestData         = await request.json();
-        await   connectToDB();
+// export async function PATCH(request,{params}){
+//     console.log('Received request at /api/category/[slug]')
+//     console.log('Request method' ,request.method);
+//     try {
+//         const   {slug , subCategorySlug} = params;
+//         const   requestData         = await request.json();
+//         await   connectToDB();
 
-        const updatedSubCategory    = await SubCategory.findByIdAndUpdate(
-            {subCategorySlug : slug} ,
-            {$set:requestData} ,// Update the subcategory with the data provided in the request body
-            {new : true} // Update the subcategory with the data provided in the request body
-        )
+//         const updatedSubCategory    = await SubCategory.findOneAndUpdate(
+//             {subCategorySlug , slug} ,
+//             {$set:requestData} ,// Update the subcategory with the data provided in the request body
+//             {new : true} // Update the subcategory with the data provided in the request body
+//         )
 
-        if(!updatedSubCategory){
-            return NextResponse.json({message:"Subcategory not Found"} , {status:404})
-        }
-        return NextResponse.json({message:'Subcategory updated successfully' ,updatedSubCategory} , {status:200})
+//         if(!updatedSubCategory){
+//             return NextResponse.json({message:"Subcategory not Found"} , {status:404})
+//         }
+//         return NextResponse.json({message:'Subcategory updated successfully' ,updatedSubCategory} , {status:200})
 
-    } catch (error) {
-        console.error('Error:', error);
-        return NextResponse.json({ message: 'Failed to update subcategory', status: 500 });
-    }
-}
+//     } catch (error) {
+//         console.error('Error:', error);
+//         return NextResponse.json({ message: 'Failed to update subcategory', status: 500 });
+//     }
+// }
