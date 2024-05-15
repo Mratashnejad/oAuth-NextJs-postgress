@@ -15,7 +15,7 @@ const UserSchema = new mongoose.Schema ({
     bio : {type : String},
 
     // user Address
-    addresses: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Address' }], // Reference to Address model
+    //addresses: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Address' }], // Reference to Address model
     //user Categoreis
     selectedCategories : [
         {
@@ -35,10 +35,10 @@ const UserSchema = new mongoose.Schema ({
 
 
     //Safety and Emergncy Managment
-    redFlags : [{type : String}],
-    KPI : [{type :String}] , //Key Performance Indicators
-    violations : [{type : String}],// List of violations committed by the user
-    breachs : [{type : String}],// Security breaches or incidents involving the user
+    redFlags :   [{type : String , default: 0}],//Red flags 
+    KPI :        [{type : String , default: 0}],//Key Performance Indicators
+    violations : [{type : String , default: 0}],// List of violations committed by the user
+    breachs :    [{type : String , default: 0}],// Security breaches or incidents involving the user
 
 
     //Emergency Contact Information
@@ -61,7 +61,12 @@ const UserSchema = new mongoose.Schema ({
                 return count + (job.status === 'completed' ? 1 : 0);
             }, 0 );
         },
-    },
+   },
+   role :{
+    isAdmin : {type :Boolean , default :false}, // is user admin ? default is false.
+    isExpert : {type : Boolean , default : false}, //is user is Expert ? default false.
+    isCustomer : {type :Boolean , default : false },// is user is a customer ? default false.
+   },
 
 
        // Timestamps

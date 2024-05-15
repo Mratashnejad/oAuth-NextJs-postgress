@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const UserAddressSchema = new mongoose.Schema({
-    uid: { type: String, required: true, unique: true },
+    userId:{type:String },
     city: { type: String },
     country: { type: String },
     state: { type: String },
@@ -12,6 +12,7 @@ const UserAddressSchema = new mongoose.Schema({
     houseNumber: { type: String },
     doorColor: { type: String },
     details: { type: String },
+    
 });
 
 const Address = mongoose.models.Address || mongoose.model('Address', UserAddressSchema);
