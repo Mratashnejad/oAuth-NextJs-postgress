@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { connectToDB } from  '../../../../utils/dbConnection';
 import Wallet from '../../../../models/wallet/WalletSchema';
-import User from    '../../../../models/User/UserAddressSchema';
+import User from    '../../../../models/user/UserAddressSchema';
 
 // JUST GET METHOD FOR ADMINSTRATORS
 

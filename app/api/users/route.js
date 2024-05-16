@@ -1,5 +1,5 @@
 import { connectToDB } from '../../../utils/dbConnection.js';
-import User from '../../../models/User/UserSchema.js';
+import User from '../../../models/user/UserSchema.js';
 import { NextResponse } from 'next/server.js';
 import { useAuth } from '@/app/context/AuthContext.js';
 

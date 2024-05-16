@@ -1,5 +1,5 @@
 import { connectToDB } from "../../../utils/dbConnection";
-import User from "../../../models/User/UserSchema";
+import User from "../../../models/user/UserSchema";
 import { NextResponse } from "next/server";
 import Address from '../../../models/address/UserAddressSchema';
 
