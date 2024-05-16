@@ -5,9 +5,10 @@ const TransactionSchema = new mongoose.Schema({
     amount: { type: Number, require: true },
     type: { type: String, enum: ['credit', 'debit'], require: true },
     description: { type: String },
+    readOnly: {type : Boolean , default :true}, // Only readable.
     timestamp: { type: Date, default: Date.now },
 });
 
-const Transaction = mongoose.model('Transaction', TransactionSchema);
+const Transaction = mongoose.models.Transaction || mongoose.model('Transaction', TransactionSchema);
 
 export default Transaction;

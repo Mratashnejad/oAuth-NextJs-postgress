@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { connectToDB } from  '../../../../utils/dbConnection';
 import Wallet from '../../../../models/wallet/WalletSchema';
-import User from    '../../../../models/user/UserAddressSchema';
+import User from   '../../../../models/user/UserSchema'
 
 // JUST GET METHOD FOR ADMINSTRATORS
 
@@ -16,10 +16,19 @@ export async function POST(request, {params}){
         await   connectToDB();
         const   user = User.findOne(userId);
 
+        //check if user exists
         if(!user){
             return NextResponse.json({message : 'User Not Found'} , {status:404})
         }
 
+        //check if user has wallet
+        const existingWallet = await Wallet.findOne({userId});
+
+        if(existingWallet){
+            return  NextResponse.json({message : 'User already has a wallet'} , {status:400});
+
+        }
+        //create new wallet 
         const userWallet = await Wallet.create({userId,balance,transactions})
 
 
@@ -31,6 +40,6 @@ export async function POST(request, {params}){
 
     } catch (error) {
         console.error('Error : ' , error);
-        return  NextResponse.json({message : 'Failt to POST wallet'})
+        return  NextResponse.json({message : 'Failed to Create wallet'})
     }
 }
