@@ -1,8 +1,8 @@
-import { connectToDB } from '../../../../utils/dbConnection';
-import SubCategory from '../../../../models/SubCategorySchema'
 import { NextResponse } from 'next/server';
-import  generateSlug  from '../../../../utils/slugGenerator';
-import Category from '../../../../models/CategorySchema';
+import { connectToDB } from '../../../../utils/dbConnection';
+
+import SubCategory from '../../../../models/categories/SubCategorySchema'
+import Category from '../../../../models/categories/CategorySchema';
 
 //POST SUB CATEGORY
 export async function POST(request,{params}){

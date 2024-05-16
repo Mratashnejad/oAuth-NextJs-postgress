@@ -28,7 +28,9 @@ const JobSchema = new Schema ({
     status : {type : String ,
         eunm :[
             'open',
+            'inComplate',
             'completed',
+            
         ] , default : 'open'},
 
 

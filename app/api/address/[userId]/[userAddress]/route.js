@@ -1,6 +1,6 @@
 import { connectToDB } from '../../../../../utils/dbConnection';
 import { NextResponse } from "next/server";
-import Address from '../../../../../models/UserAddressSchema'
+import Address from '../../../../../models/address/UserAddressSchema'
 
 
 

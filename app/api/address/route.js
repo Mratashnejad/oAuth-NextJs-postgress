@@ -1,7 +1,7 @@
 import { connectToDB } from "../../../utils/dbConnection";
-import User from "../../../models/UserSchema";
+import User from "../../../models/User/UserSchema";
 import { NextResponse } from "next/server";
-import Address from '../../../models/UserAddressSchema';
+import Address from '../../../models/address/UserAddressSchema';
 
 //Post address :
 export async function POST(request){
@@ -15,8 +15,8 @@ try {
 
     const   user = await User.findById(userId);
     if(!user){
-        throw new Error('User not found')
-    }   
+        return NextResponse.json({message : 'User Not Found'} , {status:404})
+    } 
 
     const newAddress = await   Address.create(
         {userId,city,country,state,province,zipcode,plate,apartment,houseNumber,doorColor,details})

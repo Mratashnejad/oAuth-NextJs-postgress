@@ -1,8 +1,7 @@
-import { connectToDB}   from '../../../utils/dbConnection';
-import Category from '../../../models/CategorySchema'
-import SubCategory  from    '../../../models/SubCategorySchema';
 import { NextResponse } from 'next/server';
-import  generateSlug  from '../../../utils/slugGenerator';
+import { connectToDB}   from '../../../utils/dbConnection';
+import Category from '../../../models/categories/CategorySchema'
+import SubCategory  from    '../../../models/categories/SubCategorySchema';
 
 
 //POST CATEGORY
