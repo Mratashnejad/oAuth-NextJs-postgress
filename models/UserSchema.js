@@ -15,7 +15,7 @@ const UserSchema = new mongoose.Schema ({
     bio : {type : String},
 
     // user Address
-    //addresses: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Address' }], // Reference to Address model
+    addresses: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Address' }], // Reference to Address model
     //user Categoreis
     selectedCategories : [
         {

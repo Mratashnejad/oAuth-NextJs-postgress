@@ -1,10 +1,10 @@
 import { connectToDB } from "../../../utils/dbConnection";
 import User from "../../../models/UserSchema";
 import { NextResponse } from "next/server";
-
+import Address from '../../../models/UserAddressSchema';
 
 //Post address :
-export async function POST(request,){
+export async function POST(request){
     console.log('Recived request at /api/address');
     console.log('Requset method : ', request.method);
 try {
@@ -13,15 +13,13 @@ try {
     
     await   connectToDB();
 
-    const   user = await User.findById(id);
+    const   user = await User.findById(userId);
     if(!user){
         throw new Error('User not found')
     }   
-    console.log(user)
-
 
     const newAddress = await   Address.create(
-        {city,country,state,province,zipcode,plate,apartment,houseNumber,doorColor,details})
+        {userId,city,country,state,province,zipcode,plate,apartment,houseNumber,doorColor,details})
     
     user.addresses.push(newAddress._id)
     await   user.save();
@@ -35,3 +33,21 @@ try {
 }
 
 }
+
+//Get all Addresses
+export async function GET(request){
+    console.log('Recived request at /api/address');
+    console.log('Requset method : ', request.method);
+    try {
+        await   connectToDB();
+        const   address =  await Address.find();
+        return  NextResponse.json({address} , {status:201})
+
+    } catch (error) {
+        console.error('Error : ' , error);
+        return  NextResponse.json({message : 'Faild to get Address'} , {status:500})
+    }
+
+}
+
+
