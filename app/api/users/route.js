@@ -12,11 +12,11 @@ try {
     //here
     //implement UID AND PHONE NUMBER FROM FIREBASE ***********************************
 
-    const {uid,phoneNumber , email, name, family, avatar, bio } = await request.json()
+    const {uid,phoneNumber , email, name, family, avatar, bio , language , role } = await request.json()
 
     // Connect to the database
     await   connectToDB();
-    await   User.create({uid, phoneNumber, email, name, family, avatar, bio});
+    await   User.create({uid, phoneNumber, email, name, family, avatar, bio , language , role});
     return  NextResponse.json({message:'User Created'} , {status:201})
 
 

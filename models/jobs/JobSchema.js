@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const JobSchema = new Schema ({
+const JobSchema = new mongoose.Schema ({
     customerId : {type : mongoose.Schema.ObjectId , ref : 'User' , require : true},
     expertId   : {type : mongoose.Schema.ObjectId , ref : 'User' , require : true},
 
@@ -13,16 +13,16 @@ const JobSchema = new Schema ({
     //// other details
     price      : {type : Number},
     description : {type : String},
-    workingHours : {type : String},
+    estimatedTime : {type : String},
     
-    // Wallet reference
-    wallet: { type: mongoose.Schema.Types.ObjectId, ref: 'Wallet' },
+    // // Wallet reference
+    // wallet: { type: mongoose.Schema.Types.ObjectId, ref: 'Wallet' },
 
     // Badges
     badges: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Badge' }],
 
-    //Transactions
-    transaction : [{type : mongoose.Schema.type.ObjectId , ref: 'Transaction'}],
+    // //Transactions
+    // transaction : [{type : mongoose.Schema.type.ObjectId , ref: 'Transaction'}],
 
     //status
     status : {type : String ,
@@ -36,6 +36,7 @@ const JobSchema = new Schema ({
 
 })
 
-const Job = mongoose.Model('Job' , JobSchema)
+const Job = mongoose.models.Job || mongoose.model('Job' , JobSchema)
+
 
 export default Job;

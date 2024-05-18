@@ -13,7 +13,17 @@ const UserSchema = new mongoose.Schema ({
     family : { type : String},
     avatar : { type : String},
     bio : {type : String},
-
+    
+    //user Language
+    language : {type : String ,
+        enum:[
+            'English',
+            'Armenian',
+            'Russian',
+            'Persian',
+            'Indian',
+        ] , defualt : 'English',
+    },
     // user Address
     addresses: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Address' }], // Reference to Address model
     //user Categoreis
@@ -27,11 +37,9 @@ const UserSchema = new mongoose.Schema ({
     ],
 
     //Jobs
-    jobs : [
-        {
-            type : mongoose.Schema.Types.ObjectId, ref:'Job'
-        },
-    ],
+
+    postedJobs:[{type : mongoose.Schema.Types.ObjectId , ref: 'Job'}], // jobs posted by the user (customer)
+    takenJobs :[{type : mongoose.Schema.Types.ObjectId , ref: 'Job'}], // Jobs Taken By the User ( Expert )
 
 
     //Safety and Emergncy Managment
@@ -51,13 +59,17 @@ const UserSchema = new mongoose.Schema ({
     emergencyNumber : {type : String},// Emergency Number (102, 911 ) related to Armenia.
 
     //virtual property to calculate number of jobs
-    jobCount :{ type:Number , default:function (){return this.jobs.length;}},
+    jobCount :{ type:Number , 
+        default:function (){
+            return this.postedJobs.length + this.takenJobs.length;
+    }},
 
     // Virtual property to calculate number of completed jobs
     completedJobCount:{
         type : Number,
         default : function(){
-            return this.jobs.reduce((count , job)=>{
+            const totalJobs =   [...this.postedJobs , ...this.takenJobs];
+            return totalJobs.reduce((count , job)=>{
                 return count + (job.status === 'completed' ? 1 : 0);
             }, 0 );
         },
