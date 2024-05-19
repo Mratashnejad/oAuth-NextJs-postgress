@@ -41,6 +41,9 @@ const UserSchema = new mongoose.Schema ({
     postedJobs:[{type : mongoose.Schema.Types.ObjectId , ref: 'Job'}], // jobs posted by the user (customer)
     takenJobs :[{type : mongoose.Schema.Types.ObjectId , ref: 'Job'}], // Jobs Taken By the User ( Expert )
 
+    //Review
+    receivedReviews :[{type :mongoose.Schema.Types.ObjectId , ref: 'CustomerRating'}],
+    givenReviews    :[{type :mongoose.Schema.Types.ObjectId , ref: 'CustomerRating'}],
 
     //Safety and Emergncy Managment
     redFlags :   [{type : String , default: 0}],//Red flags 
