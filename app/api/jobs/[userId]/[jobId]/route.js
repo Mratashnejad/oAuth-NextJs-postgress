@@ -59,6 +59,7 @@ export async function DELETE(request, { params }) {
 
     try {
         const   {userId , jobId}    = params;
+
         await   connectToDB();
 
         const   user    = await User.findById(userId);
@@ -67,7 +68,7 @@ export async function DELETE(request, { params }) {
         }
 
         //find the job realated to user
-        const   job = Job.findOne({_id : jobId , customerId : userId});
+        const   job = await Job.findOne({_id : jobId , customerId : userId});
         if(!job){
             return NextResponse.json({ message: 'Job not found for this user' }, { status: 404 });
         }
@@ -75,11 +76,10 @@ export async function DELETE(request, { params }) {
         //check job if is open
         if(job.status !== 'open'){
             return  NextResponse.json({message : 'Job cannot be deleted , Job Status is not OPEN ( inComplete or Complete'} , {status:400})
-
         }
 
         //delete the job
-        await   job.delete();
+        await   job.deleteOne();
         return NextResponse.json({ message: 'Job deleted successfully' } , {status:201});
 
 
