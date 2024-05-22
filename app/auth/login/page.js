@@ -1,5 +1,5 @@
   'use client'
-  import               {  app }                                 from '../config'
+  import               {  app }                                 from '../../../configs/FireBaseConfig'
   import              { useRouter }                             from 'next/navigation';
   import          React , { useState , useEffect}               from 'react';
   import {getAuth , RecaptchaVerifier , signInWithPhoneNumber } from 'firebase/auth'

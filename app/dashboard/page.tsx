@@ -1,11 +1,17 @@
 'use client'
-import RootLayout from  '@/app/layout'
-import {useRouter} from 'next/navigation'
-import {useEffect , useState} from 'react';
-//firebase
-import {useAuth} from '@/app/context/AuthContext';
+import    RootLayout            from '@/app/layout'
+import  { useRouter }           from 'next/navigation'
+import  { useEffect , useState} from 'react';
+import    Link                  from "next/link"
 
-import Link from "next/link"
+//Firebase Imports////////////////////
+import  { useAuth}              from '@/app/context/AuthContext';
+import  { storage }             from '@/configs/FireBaseConfig';
+import  { ref , uploadBytesResumable , getDownloadURL } from 'firebase/storage';
+//Firebase Imports////////////////////
+
+
+//UI Imports/////////////////////////
 import { CircleUser, Menu, Package2, Search } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -33,6 +39,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
+//UI Imports/////////////////////////
 
 
 const pathname = '/dashboard'
@@ -55,7 +62,7 @@ interface UserData {
 
 export default function Dashboard() {
   const { user , logOut }              = useAuth()
-
+  const [ currentSection, setCurrentSection] = useState('user');
   const   router                      = useRouter();
   const [ userData,setUserData ]      = useState<UserData | null>(null);
   const [ isEditing,setEditing ]      = useState(false)
@@ -63,7 +70,37 @@ export default function Dashboard() {
   const [ family  , setFamily  ]      = useState(false)
   const [ email   , setEmail   ]      = useState(false)
   const [ bio     , setBio     ]      = useState(false)
-  const [currentSection, setCurrentSection] = useState('user');
+  const [ avatarFile , setAvatarFile ]= useState<File | null>(null);
+  const [ uploadProgress , setUploadProgress ] = useState(0);
+
+  const handleFileChange =  (e : React.ChangeEvent<HTMLInputElement>)=>{
+    if(e.target.files && e.target.files[0]) {
+      setAvatarFile(e.target.files[0]);
+    }
+  }
+
+  const handleUpload = () => {
+    if (!avatarFile || !user) return;
+    const storageRef = ref(storage, `avatars/${user.uid}`);
+    const uploadTask = uploadBytesResumable(storageRef, avatarFile);
+
+    uploadTask.on(
+      'state_changed',
+      (snapshot) => {
+        const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+        setUploadProgress(progress);
+      },
+      (error) => {
+        console.error(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          setUserData((prevData) => prevData ? { ...prevData, avatar: downloadURL } : null);
+          saveToMongoDB(downloadURL);
+        });
+      }
+    );
+  };
 
   const handleSectionChange = (section: string) => {
     setCurrentSection(section);
@@ -246,7 +283,6 @@ const handleDeleteAvatar=()=>{
                             <div>
                                 <Avatar>
                                   <AvatarImage src="https://github.com/shadcn.png" />
-                                  
                               </Avatar>
                               </div>
 
@@ -275,7 +311,8 @@ const handleDeleteAvatar=()=>{
                                   {userData.bio || ''}</Textarea>
                               </div>
                               <Separator orientation="vertical"/>
-                              <Button type="submit">Edit</Button><Button type="submit">Save</Button>
+                              <Button type="submit">Edit</Button>
+                              {/* <Button type="submit">Save</Button> */}
                             </CardContent>
                           </CardContent>
                           </Card>
