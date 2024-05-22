@@ -7,13 +7,13 @@ export async function PATCH(request,{params}) {
     console.log('Received request at /api/users/');
     console.log('Request method:', request.method);
   try {
-        const {id} = params;
+        const {userId} = params;
         const {uid,phoneNumber , email, name, family, avatar, bio } = await request.json()
         // Connect to the database
     await connectToDB();
 
         //Update User by the fields that changed
-        const updatedUser = await User.findByIdAndUpdate(id, 
+        const updatedUser = await User.findByIdAndUpdate(userId, 
         {uid,phoneNumber , email, name, family, avatar, bio } ,
         {new:true})
 
@@ -34,10 +34,10 @@ export async function GET(request , {params}){
   try {
     console.log('Received request at /api/users/id');
     console.log('Request method:', request.method);
-    const {id} = params;
+    const {userId} = params;
     await connectToDB();
-    const user = await User.findOne({_id : id});
-    return NextResponse.json({user} , {status:200})
+    const user = await User.findOne({userId});
+    return NextResponse.json({message : 'User data are :',user } , {status:200})
     
   } catch (error) {
     console.error('Error:', error);

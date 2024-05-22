@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 // Connect to MONGODB
 
-let isConnected = false;
+let isConnected = false; //Tracking database Connection...
 
 export const connectToDB = async () => {
     mongoose.set('strictQuery', true); 

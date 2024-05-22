@@ -1,6 +1,5 @@
 'use client'
 import RootLayout from  '@/app/layout'
-
 import {useRouter} from 'next/navigation'
 import {useEffect , useState} from 'react';
 //firebase
@@ -29,29 +28,79 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { getUserData } from '@/utils/api';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Textarea } from "@/components/ui/textarea"
+import { Label } from "@/components/ui/label"
+import { Separator } from "@/components/ui/separator"
+
 
 const pathname = '/dashboard'
 
 
 
 interface UserData {
+  _id:string;
   uid : string;
   phoneNumber:string | null;
+  email?:string;
+  name?:string;
+  family?:string;
+  avatar?:string;
+  bio?:string;
 }
 
 
 
 
 export default function Dashboard() {
-  const {user ,signInWithPhone , logOut } = useAuth()
+  const { user , logOut }              = useAuth()
 
-  const router = useRouter();
-  const [userData, setUserData] = useState<UserData | null>(null);
+  const   router                      = useRouter();
+  const [ userData,setUserData ]      = useState<UserData | null>(null);
+  const [ isEditing,setEditing ]      = useState(false)
+  const [ name ,setNmae        ]      = useState(false)
+  const [ family  , setFamily  ]      = useState(false)
+  const [ email   , setEmail   ]      = useState(false)
+  const [ bio     , setBio     ]      = useState(false)
+  const [currentSection, setCurrentSection] = useState('user');
+
+  const handleSectionChange = (section: string) => {
+    setCurrentSection(section);
+  };
+
+  
+  const handleEditClick = ()=>{
+    setEditing (!isEditing)
+  }
+
+  const handleSaveClick = ()=>{
+    setEditing(false)
+  }
+
+
+
+
+const  handleAvatarChange=()=>{
+  //handle editing avar
+
+
+}
+const handleDeleteAvatar=()=>{
+///handel avatar removing
+}
 
  useEffect(()=>{
   if(user){
-    const {uid , phoneNumber} = user;
-    setUserData ({uid , phoneNumber});
+
+    getUserData(user._id)
+    .then((data)=>{
+      setUserData(data)
+    })
+    .catch((error)=>{
+      console.error('error fetchin user data')
+    })
+
   }else{
     setUserData(null);
   }
@@ -90,20 +139,9 @@ export default function Dashboard() {
             href="#"
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
-            Orders
+            Jobs
           </Link>
-          <Link
-            href="#"
-            className="text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Products
-          </Link>
-          <Link
-            href="#"
-            className="text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Customers
-          </Link>
+          
           <Link
             href="#"
             className="text-foreground transition-colors hover:text-foreground"
@@ -141,19 +179,7 @@ export default function Dashboard() {
                 href="#"
                 className="text-muted-foreground hover:text-foreground"
               >
-                Orders
-              </Link>
-              <Link
-                href="#"
-                className="text-muted-foreground hover:text-foreground"
-              >
-                Products
-              </Link>
-              <Link
-                href="#"
-                className="text-muted-foreground hover:text-foreground"
-              >
-                Customers
+                Jobs
               </Link>
               <Link href="#" className="hover:text-foreground">
                 Settings
@@ -164,12 +190,12 @@ export default function Dashboard() {
         <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
           <form className="ml-auto flex-1 sm:flex-initial">
             <div className="relative">
-              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+              {/* <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
               <Input
                 type="search"
                 placeholder="Search products..."
                 className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
-              />
+              /> */}
             </div>
           </form>
           <DropdownMenu>
@@ -181,8 +207,10 @@ export default function Dashboard() {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
-            <DropdownMenuLabel>{userData && userData.phoneNumber}</DropdownMenuLabel>
+            <DropdownMenuLabel>{userData?.phoneNumber}</DropdownMenuLabel>
+
             <DropdownMenuSeparator />
+            <DropdownMenuItem>Notification</DropdownMenuItem>
             <DropdownMenuItem>Settings</DropdownMenuItem>
             <DropdownMenuItem>Support</DropdownMenuItem>
             <DropdownMenuSeparator />
@@ -192,71 +220,71 @@ export default function Dashboard() {
         </div>
       </header>
       <main className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10">
-        <div className="mx-auto grid w-full max-w-6xl gap-2">
-          <h1 className="text-3xl font-semibold">Settings</h1>
-        </div>
-        <div className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
-          <nav
-            className="grid gap-4 text-sm text-muted-foreground" x-chunk="dashboard-04-chunk-0"
-          >
-            <Link href="#" className="font-semibold text-primary">
-              General
-            </Link>
-            <Link href="#">Security</Link>
-            <Link href="#">Integrations</Link>
-            <Link href="#">Support</Link>
-            <Link href="#">Organizations</Link>
-            <Link href="#">Advanced</Link>
-          </nav>
-          <div className="grid gap-6">
-            <Card x-chunk="dashboard-04-chunk-1">
-              <CardHeader>
-                <CardTitle>Store Name</CardTitle>
-                <CardDescription>
-                  Used to identify your store in the marketplace.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <form>
-                  <Input placeholder="Store Name" />
-                </form>
-              </CardContent>
-              <CardFooter className="border-t px-6 py-4">
-                <Button>Save</Button>
-              </CardFooter>
-            </Card>
-            <Card x-chunk="dashboard-04-chunk-2">
-              <CardHeader>
-                <CardTitle>Plugins Directory</CardTitle>
-                <CardDescription>
-                  The directory within your project, in which your plugins are
-                  located.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <form className="flex flex-col gap-4">
-                  <Input
-                    placeholder="Project Name"
-                    defaultValue="/content/plugins"
-                  />
-                  <div className="flex items-center space-x-2">
-                    <Checkbox id="include" defaultChecked />
-                    <label
-                      htmlFor="include"
-                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      Allow administrators to change the directory.
-                    </label>
-                  </div>
-                </form>
-              </CardContent>
-              <CardFooter className="border-t px-6 py-4">
-                <Button>Save</Button>
-              </CardFooter>
-            </Card>
-          </div>
-        </div>
-      </main>
+            <div className="mx-auto grid w-full max-w-6xl gap-2">
+              <h1 className="text-3xl font-semibold">Settings</h1>
+            </div>
+            <div className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
+              <nav
+                className="grid gap-4 text-sm text-muted-foreground" x-chunk="dashboard-04-chunk-0"
+              >
+                <Link href="#" className="font-semibold text-primary">
+                  User Information
+                </Link>
+                <Link href="#">Address</Link>
+                <Link href="#">Languages</Link>
+                <Link href="#">Advanced</Link>
+              </nav>
+              <div className="grid gap-6">
+                {userData? (
+                          <Card>
+                          <CardHeader>
+                            <CardTitle>User Information</CardTitle>
+                            <CardDescription>Details about the User {userData.phoneNumber}</CardDescription>
+                          </CardHeader>
+                          <CardContent>
+                            <CardContent>
+                            <div>
+                                <Avatar>
+                                  <AvatarImage src="https://github.com/shadcn.png" />
+                                  
+                              </Avatar>
+                              </div>
+
+                              <div>
+                              <Label htmlFor="name">Name:</Label>
+                                <Input type="text" id="family" placeholder="Enter your family name" value={userData.name || ''}  />
+                              </div>
+                            
+                              <div>
+                                <Label htmlFor="family">Family:</Label>
+                                <Input type="text" id="family" placeholder="Enter your family name" value={userData.family || ''}  />
+                            
+                              </div>
+                              <div>
+                                <Label htmlFor="email">Email:</Label>
+                                <Input type="email" id="email" placeholder="Enter your email address" value={userData.email || ''} readOnly={!isEditing} />
+
+                              </div>
+                              
+                              <div>
+                              <Label htmlFor="bio">Bio</Label>
+                                <Textarea
+                                placeholder="Tell us a little bit about yourself"
+                                className="resize-none"
+                                >
+                                  {userData.bio || ''}</Textarea>
+                              </div>
+                              <Separator orientation="vertical"/>
+                              <Button type="submit">Edit</Button><Button type="submit">Save</Button>
+                            </CardContent>
+                          </CardContent>
+                          </Card>
+                      ):(
+                      <p>Loading User data ...</p>
+                    )} 
+                </div>
+            </div>
+        </main>
     </div>
     </RootLayout>
   )

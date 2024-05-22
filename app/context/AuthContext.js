@@ -13,8 +13,21 @@ export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
-      setUser(user);
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+     if(user){
+      const {uid , phoneNumber} = user;
+      const response = await fetch('/api/users', {
+        method : 'POST',
+        headers:{
+          'Content-Type' : 'application/json',
+        },
+        body:JSON.stringify({uid , phoneNumber}),
+      });
+      const data = await response.json();
+      setUser(data.user);
+     }else{
+      setUser(null);
+     }
     });
     return () => unsubscribe();
   }, []);

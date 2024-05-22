@@ -1,14 +1,18 @@
   'use client'
-  import React , { useState , useEffect} from 'react';
+  import               {  app }                                 from '../config'
+  import              { useRouter }                             from 'next/navigation';
+  import          React , { useState , useEffect}               from 'react';
   import {getAuth , RecaptchaVerifier , signInWithPhoneNumber } from 'firebase/auth'
-  import {app} from '../config'
-  import { useRouter } from 'next/navigation';
+
 
   export default function Login(){
       const [phoneNumber , setPhoneNumber] = useState('')
       const [otp , setOtp] = useState('')
       const [confirmationResult , setConfirmationResult] = useState(null)
       const [otpSent , setOtpSent] = useState(false)
+
+      //temp
+      const [isSubmitting,setIsSubmitting] = useState(false);
 
       const auth = getAuth(app);
       const router = useRouter();
@@ -18,9 +22,10 @@
               'size':'normal',
               'callback':(response)=>{},
               'expired-callback': ()=>{},
-          });
+          },auth);
 
-      },);
+      }, [auth]);
+
 
    
 
@@ -35,10 +40,11 @@
       const handleSendOtp = async()=>{
           try{
               const formattedPhoneNumber = `+${phoneNumber.replace(/\D/g,'')}`;
-              const confirmation = await signInWithPhoneNumber(authInstance,formattedPhoneNumber,window.recaptchaVerifier)
+              const confirmation = await signInWithPhoneNumber(auth,formattedPhoneNumber,window.recaptchaVerifier)
               setConfirmationResult(confirmation);
               setOtpSent(true);
               setPhoneNumber('');
+              console.log('OTP has been sent')
               alert('OTP has been sent');
 
           }catch(error){
@@ -47,11 +53,43 @@
       };
 
       const handleOTPSubmit = async()=>{
-          try{
-              await confirmationResult.confirm(otp)
-              setOtp('');
-              router.push('/dashboard')
+        if(isSubmitting) return;
+        setIsSubmitting(true);
+        console.log('handleOTPSubmit Called');
 
+          try{
+              const   result = await confirmationResult.confirm(otp);
+              const   user   = result.user;
+              const   uid    = user.uid;
+              const   phoneNumber = user.phoneNumber;
+
+
+              //temp check user data
+              console.log('Submitting User : ',uid ,phoneNumber);
+
+              //send UID and phoneNumber to API
+              const   response = await fetch('/api/users',{
+                method : 'POST',
+                headers:{
+                  'Content-Type' : 'application/json',
+                },
+                body: JSON.stringify({uid , phoneNumber}),
+              })
+
+              if(response.status == 201){
+                console.log('user created successfully');
+                console.log('router routing to dashboard ...')
+                router.push('/dashboard')
+              }else if (response.status == 409){
+                console.log('user is already registered');
+                console.log('router routing to homepage ...')
+                router.push('/')
+              }else{
+                console.log('failed to create user in mongoDB')
+              }
+              console.log('otp set to empty')
+
+              setOtp('');
           }catch(error){
               console.error(error)
           }
