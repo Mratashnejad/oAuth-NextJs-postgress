@@ -30,17 +30,17 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Textarea } from "@/components/ui/textarea"
-import { Label } from "@/components/ui/label"
-import { Separator } from "@/components/ui/separator"
 //UI Imports/////////////////////////
 
-import {getUserData , setUserInfoData} from '@/utils/api';
+import {getUserData , setUserInfoData} from '@/app/api/users/api';
 import {  UserData  } from '../../types/types';
+
+///FORMS
 import UserInfoForm from '@/components/forms/UserInfoForm';
+import UserAddressForm from '@/components/forms/UserAddressForm';
+import UserLanguageForm from '@/components/forms/UserLanguageForm';
+import UserEmergencyContentForm from '@/components/forms/UserEmergencyContentFrom';
 
 const pathname = '/dashboard'
 
@@ -48,9 +48,14 @@ const pathname = '/dashboard'
 export default function Dashboard() {
   const { user, logOut } = useAuth();
   const router = useRouter();
+  const [activeSession , setActiveSession ] = useState('userInformation')
   const [userData, setUserData] = useState<UserData | null>(null);
   const [isEditing, setEditing] = useState(false);
 
+  const handleNavigation = (section : string) =>{
+    setActiveSession(section)
+  }
+  
   const handleEditClick = () => {
     setEditing(!isEditing);
   };
@@ -110,20 +115,20 @@ export default function Dashboard() {
               <span className="sr-only">Acme Inc</span>
             </Link>
             <Link
-              href="#"
+              href="/dashboard"
               className="text-muted-foreground transition-colors hover:text-foreground"
             >
               Dashboard
             </Link>
             <Link
-              href="#"
+              href="/dashboard/jobs"
               className="text-muted-foreground transition-colors hover:text-foreground"
             >
               Jobs
             </Link>
 
             <Link
-              href="#"
+              href="/dashboard/settings"
               className="text-foreground transition-colors hover:text-foreground"
             >
               Settings
@@ -208,29 +213,47 @@ export default function Dashboard() {
               className="grid gap-4 text-sm text-muted-foreground"
               x-chunk="dashboard-04-chunk-0"
             >
-              <Link href="#" className="font-semibold text-primary">
+              <Button  variant="link"  className="font-semibold text-primary" onClick={()=>handleNavigation('userInformation')}>
                 User Information
-              </Link>
-              <Link href="#">Address</Link>
-              <Link href="#">Languages</Link>
-              <Link href="#">Advanced</Link>
+              </Button>
+              <Button  variant="link"  className="font-semibold text-primary" onClick={()=>handleNavigation('userLanguages')}>
+                User Languages
+              </Button>
+              <Button  variant="link"  className="font-semibold text-primary" onClick={()=>handleNavigation('userAddress')}>
+                User Address
+              </Button> 
+              <Button  variant="link"  className="font-semibold text-primary" onClick={()=>handleNavigation('userEmergencyContent')}>
+               Emergency Contact
+              </Button>
             </nav>
+            {activeSession === 'userInformation' && (
             <div className="grid gap-6">
-              {userData ? (
-                <Card>
-                  <CardHeader>
-                    <CardTitle>User Information</CardTitle>
-                    <CardDescription>Details about the User {userData.phoneNumber}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <UserInfoForm userData={userData} isEditing={isEditing} onSave={handleSaveUserInfo} />
-                    {!isEditing && <button onClick={handleEditClick}>Edit</button>}
-                  </CardContent>
-                </Card>
-              ) : (
-                <p>Loading User data ...</p>
-              )}
-           </div>
+                        {userData ? (
+                          <Card>
+                            <CardHeader>
+                              <CardTitle>User Information</CardTitle>
+                              <CardDescription>Details about the User {userData.phoneNumber}</CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                              <UserInfoForm userData={userData}  onSave={handleSaveUserInfo} />
+                            </CardContent>
+                          </Card>
+                        ) : (
+                          <div>Loading User data ...</div>
+                        )}
+                    </div>)}
+
+                {activeSession === 'userAddress' && (
+                  <UserAddressForm />
+                )}
+                 {activeSession === 'userLanguages' && (
+                  <UserLanguageForm />
+                )}
+                {activeSession === 'userEmergencyContent' && (
+                  <UserEmergencyContentForm />
+                )}
+                
+                      
         </div>
       </main>
     </div>

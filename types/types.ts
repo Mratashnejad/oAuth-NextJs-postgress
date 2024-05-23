@@ -7,4 +7,5 @@ export interface UserData {
     family?:string;
     avatar?:string;
     bio?:string;
+    language?:string[];
 }

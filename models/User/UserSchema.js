@@ -14,16 +14,13 @@ const UserSchema = new mongoose.Schema ({
     avatar : { type : String},
     bio : {type : String},
     
-    //user Language
-    language : {type : String ,
-        enum:[
-            'English',
-            'Armenian',
-            'Russian',
-            'Persian',
-            'Indian',
-        ] , defualt : 'English',
-    },
+     // User Language
+    language: [{ 
+    type: String,
+    enum: ['English', 'Armenian', 'Russian', 'Persian', 'Indian'],
+    default: ['English']
+        }],
+    
     // user Address
     addresses: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Address' }], // Reference to Address model
     //user Categoreis

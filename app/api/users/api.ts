@@ -31,6 +31,7 @@ export const setUserInfoData = async (userId : string , userData : UserData)=>{
               family : userData.family,
               avatar : userData.avatar,
               bio : userData.bio,
+              language : userData.language,
             })
           })
         if(!response.ok){
