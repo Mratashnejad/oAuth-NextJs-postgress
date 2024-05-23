@@ -8,13 +8,13 @@ export async function PATCH(request,{params}) {
     console.log('Request method:', request.method);
   try {
         const {userId} = params;
-        const {uid,phoneNumber , email, name, family, avatar, bio } = await request.json()
+        const { email, name, family, avatar, bio } = await request.json()
         // Connect to the database
     await connectToDB();
 
         //Update User by the fields that changed
         const updatedUser = await User.findByIdAndUpdate(userId, 
-        {uid,phoneNumber , email, name, family, avatar, bio } ,
+        {email, name, family, avatar, bio } ,
         {new:true})
 
     if (!updatedUser) {

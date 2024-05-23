@@ -1,10 +1,26 @@
   'use client'
-  import               {  app }                                 from '../../../configs/FireBaseConfig'
-  import              { useRouter }                             from 'next/navigation';
-  import          React , { useState , useEffect}               from 'react';
-  import {getAuth , RecaptchaVerifier , signInWithPhoneNumber } from 'firebase/auth'
+  import               {  app }                                   from '../../../configs/FireBaseConfig'
+  import              { useRouter }                               from 'next/navigation';
+  import          React , { useState , useEffect}                 from 'react';
+  import {  getAuth , RecaptchaVerifier , signInWithPhoneNumber } from 'firebase/auth'
+  import               { Button }                                 from '@/components/ui/button';
+  import               { Input  }                                 from '@/components/ui/input';
+  import              { InputOTP }                                from '@/components/ui/input-otp';
+  import              {     z    }                                from 'zod';
+  import              { zodResolver }                             from '@hookform/resolvers/zod';
+  import              { useForm  }                                from 'react-hook-form';
 
+  import {
+    Form,
+    FormControl,
+    FormDescription,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+  } from "@/components/ui/form"
 
+  
   export default function Login(){
       const [phoneNumber , setPhoneNumber] = useState('')
       const [otp , setOtp] = useState('')
@@ -96,18 +112,19 @@
       };
 
       return(
-          <div className="min-h-screen flex justify-center items-center bg-gray-100">
-          <div className="max-w-md w-full p-8 bg-white shadow-lg rounded-lg">
-            {!otpSent ? (
-              <div id="recaptcha-container" className="mb-4"></div>
-            ) : null}
-            <input
-              type="tel"
-              value={phoneNumber}
-              onChange={handlePhoneNumberChange}
-              placeholder="Enter Phone Number with Country Code"
-              className="border border-gray-300 rounded-lg px-4 py-2 w-full mb-4 text-sm placeholder-gray-400"
-            />
+        <div className="min-h-screen flex justify-center items-center bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
+        <div className="max-w-md w-full p-8 bg-white shadow-lg rounded-lg">
+          {!otpSent ? (
+            <div id="recaptcha-container" className="mb-4"></div>
+          ) : null}
+          <input
+            type="tel"
+            value={phoneNumber}
+            onChange={handlePhoneNumberChange}
+            placeholder="Enter Phone Number with Country Code"
+            className="border border-gray-300 rounded-lg px-4 py-2 w-full mb-4 text-sm placeholder-gray-400"
+          />
+          {otpSent && (
             <input
               type="text"
               value={otp}
@@ -115,13 +132,14 @@
               placeholder="Enter OTP"
               className="border border-gray-300 rounded-lg px-4 py-2 w-full mb-4 text-sm placeholder-gray-400"
             />
-            <button
-              onClick={otpSent ? handleOTPSubmit : handleSendOtp}
-              className={`bg-${otpSent ? 'green' : 'blue'}-500 text-white p-2 rounded-lg w-full text-sm font-semibold`}
-            >
-              {otpSent ? 'Submit OTP' : 'Send OTP'}
-            </button>
-          </div>
+          )}
+          <button
+            onClick={otpSent ? handleOTPSubmit : handleSendOtp}
+            className={`bg-${otpSent ? 'green' : 'blue'}-500 text-white p-2 rounded-lg w-full text-sm font-semibold`}
+          >
+            {otpSent ? 'Submit OTP' : 'Send OTP'}
+          </button>
         </div>
+      </div>
       )
   }
