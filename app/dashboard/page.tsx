@@ -39,7 +39,6 @@ import {  UserData  } from '../../types/types';
 ///FORMS
 import UserInfoForm from '@/components/forms/UserInfoForm';
 import UserAddressForm from '@/components/forms/UserAddressForm';
-import UserLanguageForm from '@/components/forms/UserLanguageForm';
 import UserEmergencyContentForm from '@/components/forms/UserEmergencyContentFrom';
 
 const pathname = '/dashboard'
@@ -216,9 +215,6 @@ export default function Dashboard() {
               <Button  variant="link"  className="font-semibold text-primary" onClick={()=>handleNavigation('userInformation')}>
                 User Information
               </Button>
-              <Button  variant="link"  className="font-semibold text-primary" onClick={()=>handleNavigation('userLanguages')}>
-                User Languages
-              </Button>
               <Button  variant="link"  className="font-semibold text-primary" onClick={()=>handleNavigation('userAddress')}>
                 User Address
               </Button> 
@@ -237,17 +233,17 @@ export default function Dashboard() {
                             <CardContent>
                               <UserInfoForm userData={userData}  onSave={handleSaveUserInfo} />
                             </CardContent>
+                            
                           </Card>
+                          
                         ) : (
                           <div>Loading User data ...</div>
                         )}
                     </div>)}
 
                 {activeSession === 'userAddress' && (
+                  
                   <UserAddressForm />
-                )}
-                 {activeSession === 'userLanguages' && (
-                  <UserLanguageForm />
                 )}
                 {activeSession === 'userEmergencyContent' && (
                   <UserEmergencyContentForm />
