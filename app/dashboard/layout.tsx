@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import Header from '@/components/dashboard/header';
 import Footer from '@/components/footer';
 import { ThemeProvider } from '@/components/theme-provider';
 import { AuthContextProvider } from '@/app/context/AuthContext';
@@ -22,15 +21,14 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
     <html lang='en' className='scroll-smooth antialiased' suppressHydrationWarning>
       <body className={`flex min-h-screen flex-col ${inter.className}`}>
         <AuthContextProvider>
-          <ThemeProvider
+          {/* <ThemeProvider
             enableSystem
             attribute='class'
             defaultTheme='system'
-            disableTransitionOnChange>
-            <Header />
+            disableTransitionOnChange> */}
             <main className='flex-grow'>{children}</main>
-            <Footer />
-          </ThemeProvider>
+            
+          {/* </ThemeProvider> */}
         </AuthContextProvider>
       </body>
     </html>

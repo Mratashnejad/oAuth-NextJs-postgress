@@ -66,13 +66,16 @@ export default function Jobs() {
       <div className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
         <nav className="grid gap-4 text-sm text-muted-foreground">
           <Button variant="link" className="font-semibold text-primary" onClick={() => handleNavigation('userInformation')}>
-            User Information
+            Post JOB
           </Button>
           <Button variant="link" className="font-semibold text-primary" onClick={() => handleNavigation('userAddress')}>
-            User Address
+            Active Jobs
           </Button>
           <Button variant="link" className="font-semibold text-primary" onClick={() => handleNavigation('userEmergencyContent')}>
-            Emergency Contact
+            Inprocess Jobs
+          </Button>
+          <Button variant="link" className="font-semibold text-primary" onClick={() => handleNavigation('userEmergencyContent')}>
+            Finished Jobs
           </Button>
         </nav>
         {activeSession === 'userInformation' && (

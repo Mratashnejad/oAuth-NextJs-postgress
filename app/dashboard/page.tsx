@@ -21,6 +21,7 @@ import {
 
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 // Additional imports if needed
+import DashboardLayout from '@/components/dashboard/DashboardLayout'; // Adjust the path if necessary
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -29,18 +30,10 @@ export const metadata: Metadata = {
 
 export default function DashboardPage() {
   return (
-    <>
+    <DashboardLayout title='Dashboard'>
       <div className="flex min-h-screen w-full flex-col">
-   
         <div className="hidden flex-col md:flex">
           <div className="flex-1 space-y-4 p-8 pt-6">
-            <div className="flex items-center justify-between space-y-2">
-              <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
-              <div className="flex items-center space-x-2">
-                {/* <CalendarDateRangePicker /> */}
-                <Button>POST JOB </Button>
-              </div>
-            </div>
             <Tabs defaultValue="overview" className="space-y-4">
               <TabsList>
                 <TabsTrigger value="overview">Overview</TabsTrigger>
@@ -184,6 +177,6 @@ export default function DashboardPage() {
           </div>
         </div>
       </div>
-    </>
+    </DashboardLayout>
   )
 }
