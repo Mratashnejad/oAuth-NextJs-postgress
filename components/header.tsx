@@ -1,7 +1,6 @@
-import Link from 'next/link'
 import { ThemeToggle } from '@/components/theme-toggle'
 import { LanguageToggle } from './language-toggle'
-import { NavigationMenuDemo } from '@/components/navbar'
+import  Navbar  from '@/components/navbar'
 import UserMenu from './userMenu'
 
 export default function Header() {
@@ -10,12 +9,12 @@ export default function Header() {
       <nav className='container flex items-center justify-between'>
         {/* Left-aligned section (Navigation Menu) */}
         <div className='flex items-center space-x-4'>
-          <NavigationMenuDemo />
+          <Navbar />
         </div>
 
-        {/* Right-aligned section (Language Toggle, Theme Toggle) */}
-        <div className='flex items-center space-x-4'>
-          
+          {/* Right-aligned section (Language Toggle, Theme Toggle) */}
+          <div className='flex items-center space-x-4'>
+            
           <LanguageToggle />
           <ThemeToggle />
           <UserMenu />
