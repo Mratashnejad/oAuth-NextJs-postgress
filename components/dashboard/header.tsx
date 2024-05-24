@@ -86,18 +86,18 @@ export default function Header() {
                   <span className="sr-only">Acme Inc</span>
                 </Link>
                 <Link
-                  href="#"
+                  href="/dashboard"
                   className="text-muted-foreground hover:text-foreground"
                 >
                   Dashboard
                 </Link>
                 <Link
-                  href="#"
+                  href="/dashboard/jobs"
                   className="text-muted-foreground hover:text-foreground"
                 >
                   Jobs
                 </Link>
-                <Link href="#" className="hover:text-foreground">
+                <Link href="/dashboard/settings" className="hover:text-foreground">
                   Settings
                 </Link>
               </nav>
