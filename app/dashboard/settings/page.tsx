@@ -15,7 +15,7 @@ import UserAddressForm from '@/components/forms/UserAddressForm';
 import UserEmergencyContentForm from '@/components/forms/UserEmergencyContentFrom';
 import { getUserData, setUserInfoData } from '@/app/api/users/api';
 import { UserData } from '../../../types/types';
-import DashboardLayout from '@/components/dashboard/dashboardLayout'; // Adjust the path if necessary
+import DashboardLayout from '@/components/dashboard/DashboardLayout'; // Adjust the path if necessary
 
 export default function Settings() {
   const { user } = useAuth();
@@ -59,10 +59,10 @@ export default function Settings() {
   };
 
   return (
-    <DashboardLayout>
-      <div className="mx-auto grid w-full max-w-6xl gap-2">
+    <DashboardLayout title='Setting'>
+      {/* <div className="mx-auto grid w-full max-w-6xl gap-2">
         <h1 className="text-3xl font-semibold">Settings</h1>
-      </div>
+      </div> */}
       <div className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
         <nav className="grid gap-4 text-sm text-muted-foreground">
           <Button variant="link" className="font-semibold text-primary" onClick={() => handleNavigation('userInformation')}>
