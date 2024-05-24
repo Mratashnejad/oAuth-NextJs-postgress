@@ -1,8 +1,7 @@
 'use client'
 
-import * as React from 'react'
+import React , {useState}from 'react'
 import { Globe } from 'lucide-react';
-import { useTheme } from 'next-themes'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -12,9 +11,15 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 
-export function LanguageToggle() {
-  const { setTheme } = useTheme()
+interface Language{
+  language : string;
+}
+export function LanguageToggle({language} : Language) {
 
+  const [ selectedLanguage ,setSelectedLanguage ] = useState(language)
+  const handleLanguageChange =(newLanguage : string)=>{
+    setSelectedLanguage (newLanguage)
+  }
   return (
     
 
@@ -25,13 +30,13 @@ export function LanguageToggle() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end'>
-        <DropdownMenuItem onClick={() => setTheme('light')}>
+        <DropdownMenuItem onClick={() => handleLanguageChange('English')}>
           English
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme('dark')}>
+        <DropdownMenuItem onClick={() => handleLanguageChange('Armenian')}>
           Armenian
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme('dark')}>
+        <DropdownMenuItem onClick={() => handleLanguageChange('Russian')}>
           Russian
         </DropdownMenuItem>
       </DropdownMenuContent>

@@ -16,13 +16,14 @@ import {
 import Link from "next/link"
 import { useRouter } from "next/navigation";
 import { useEffect , useState } from "react";
-import { Dialog, DialogDescription, DialogTitle ,DialogContent, DialogTrigger} from "@radix-ui/react-dialog";
-import { DialogFooter, DialogHeader } from "./ui/dialog";
 
 interface UserData {
   uid : string;
   phoneNumber:string | null;
 }
+
+//Icons
+import { LayoutDashboard  , User , Bell, Settings ,Pickaxe , Wallet , LogOut  ,LogIn } from 'lucide-react';
 
 
 
@@ -67,22 +68,34 @@ export default function UserMenu(){
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuLabel>{user.phoneNumber}</DropdownMenuLabel>
+              <DropdownMenuLabel>User </DropdownMenuLabel>
+              <DropdownMenuLabel><User />{user.phoneNumber}</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <Link href="/dashboard">
-              <DropdownMenuItem>Dashboard</DropdownMenuItem>
+              <Link href="/dashboard/notifications">
+              <DropdownMenuItem><Bell/> Notifications</DropdownMenuItem>
               </Link>
-       
-              <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
+              <Link href="/dashboard/jobs">
+              <DropdownMenuItem><Pickaxe/>Jobs</DropdownMenuItem>
+              </Link>
+              <Link href="/dashboard/wallet">
+              <DropdownMenuItem><Wallet/>Wallet</DropdownMenuItem>
+              </Link>
+              <Link href="/dashboard/settings">
+              <DropdownMenuItem><Settings/>Settings</DropdownMenuItem>
+              </Link>
+              <Link href="/dashboard">
+              <DropdownMenuItem><LayoutDashboard/> Dashboard</DropdownMenuItem>
+              </Link>
+              
+              <DropdownMenuItem onClick={handleLogout}><LogOut/>Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
           </div>
       
       ):(
         
-        <Link href={'/auth/login'}><Button>SignIn</Button></Link>
-        
+        <Link href={'/auth/login'}><Button> SignIn</Button></Link>
+
       )}
       </>
     )
