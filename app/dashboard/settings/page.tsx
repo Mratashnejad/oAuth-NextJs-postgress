@@ -3,19 +3,15 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/app/context/AuthContext';
 import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import UserInfoForm from '@/components/forms/UserInfoForm';
 import UserAddressForm from '@/components/forms/UserAddressForm';
 import UserEmergencyContentForm from '@/components/forms/UserEmergencyContentFrom';
+import DashboardLayout from '@/components/dashboard/DashboardLayout';
+
+//API
 import { getUserData, setUserInfoData } from '@/app/api/users/api';
 import { UserData } from '../../../types/types';
-import DashboardLayout from '@/components/dashboard/DashboardLayout'; // Adjust the path if necessary
 
 export default function Settings() {
   const { user } = useAuth();
@@ -46,12 +42,10 @@ export default function Settings() {
   const handleSaveUserInfo = async (data: UserData) => {
     try {
       if (data) {
-        const response = await setUserInfoData(user._id, data);
-        if (response.ok) {
-          console.log('User information updated successfully');
-        } else {
-          console.error('Failed to update user information');
-        }
+        await setUserInfoData(user._id, data);
+        console.log('User information updated successfully');
+        const newData = await getUserData(user._id);
+        setUserData(newData);
       }
     } catch (error) {
       console.error('Error updating user information:', error);
