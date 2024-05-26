@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Footer() {
   return (
-    <footer className='flex py-4'>
+    <footer className='flex py-5'>
       <div className='container'>
         <p className='text-center text-sm text-gray-500'>
           &copy; {new Date().getFullYear()} Gtnelu. All rights reserved.
