@@ -16,6 +16,7 @@ export const AuthContextProvider = ({ children }) => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
      if(user){
       const {uid , phoneNumber} = user;
+      
       const response = await fetch('/api/users', {
         method : 'POST',
         headers:{
