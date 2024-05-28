@@ -21,7 +21,7 @@ const Navbar = () => {
   const [categories, setCategories] = useState<Category[]>([]);
 
   useEffect(() => {
-    fetch('/categories.json')
+    fetch('/data/categories.json')
       .then((response) => response.json())
       .then((data) => setCategories(data.categories));
   }, []);
