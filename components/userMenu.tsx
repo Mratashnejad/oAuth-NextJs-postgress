@@ -1,18 +1,9 @@
 'use client'
-import { CircleUser, Menu, Package2, Search } from "lucide-react"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { CircleUser} from "lucide-react"
 //firebase
-import {useAuth} from '@/app/context/AuthContext';
+import {  useAuth } from '@/app/context/AuthContext';
 import { Button } from "./ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+import { DropdownMenu,DropdownMenuContent,DropdownMenuItem,DropdownMenuLabel,DropdownMenuSeparator,DropdownMenuTrigger,} from "@/components/ui/dropdown-menu"
 import Link from "next/link"
 import { useRouter } from "next/navigation";
 import { useEffect , useState } from "react";
@@ -21,11 +12,6 @@ interface UserData {
   uid : string;
   phoneNumber:string | null;
 }
-
-//Icons
-import { LayoutDashboard  , User , Bell, Settings ,Pickaxe , Wallet , LogOut  ,LogIn } from 'lucide-react';
-
-
 
 export default function UserMenu(){
 
@@ -54,12 +40,10 @@ export default function UserMenu(){
     }
   };
 
-  // const user = useAuth()
     return(
       <>
       {user ? (
         <div>
-        
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="secondary" size="icon" className="rounded-full">
@@ -68,34 +52,30 @@ export default function UserMenu(){
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>User </DropdownMenuLabel>
-              <DropdownMenuLabel><User />{user.phoneNumber}</DropdownMenuLabel>
+              <DropdownMenuLabel>Dear {user.name} </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <Link href="/dashboard/notifications">
-              <DropdownMenuItem><Bell/> Notifications</DropdownMenuItem>
+              <DropdownMenuItem>Notifications</DropdownMenuItem>
               </Link>
               <Link href="/dashboard/jobs">
-              <DropdownMenuItem><Pickaxe/>Jobs</DropdownMenuItem>
+              <DropdownMenuItem>Jobs</DropdownMenuItem>
               </Link>
               <Link href="/dashboard/wallet">
-              <DropdownMenuItem><Wallet/>Wallet</DropdownMenuItem>
+              <DropdownMenuItem>Wallet</DropdownMenuItem>
               </Link>
               <Link href="/dashboard/settings">
-              <DropdownMenuItem><Settings/>Settings</DropdownMenuItem>
+              <DropdownMenuItem>Settings</DropdownMenuItem>
               </Link>
               <Link href="/dashboard">
-              <DropdownMenuItem><LayoutDashboard/> Dashboard</DropdownMenuItem>
+              <DropdownMenuItem>Dashboard</DropdownMenuItem>
               </Link>
-              
-              <DropdownMenuItem onClick={handleLogout}><LogOut/>Logout</DropdownMenuItem>
+              <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
           </div>
       
       ):(
-        
         <Link href={'/auth/login'}><Button> SignIn</Button></Link>
-
       )}
       </>
     )

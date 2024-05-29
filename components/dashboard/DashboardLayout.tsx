@@ -1,9 +1,10 @@
 import React from 'react';
-import Header from '@/components/dashboard/header';
+import Header from '@/components/dashboard/DashboardHeader';
 import Footer from '@/components/footer';
 import {Button} from '@/components/ui/button';
 import { ThemeProvider } from '@/components/theme-provider';
 import { AuthContextProvider } from '@/app/context/AuthContext';
+
 import '@/css/globals.css';
 
 interface DashboardLayoutProps {
