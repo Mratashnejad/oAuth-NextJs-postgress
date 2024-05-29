@@ -1,7 +1,15 @@
 import jwt , {JwtPayload} from 'jsonwebtoken'
+import {config} from 'dotenv';
+
+config();
 
 
-const SECRET_KEY = process.env.SECRET_KEY as string
+
+const SECRET_KEY = process.env.NEXT_PUBLIC_SITE_KEY as string
+
+if(!SECRET_KEY) {
+    throw new Error ('Secret Key envirment variable not set')
+}
 
 export interface User {
     uid:string;

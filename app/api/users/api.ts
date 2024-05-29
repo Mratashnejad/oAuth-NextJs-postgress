@@ -1,7 +1,7 @@
 //geting user data from  /api/users/${userId}
 import axios from 'axios';
-
 import { UserData } from "@/types/types";
+import { API_URLS } from '@/configs'; /// later change the urls with url center.
 
 const USER_URL = '/api/users'
 

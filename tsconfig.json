@@ -34,7 +34,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "firebase/config.js"
-, "components/PhoneAuth.js"  ],
+, "components/PhoneAuth.js", "app/context/AuthContext.js", "utils/token.ts"  ],
   "exclude": [
     "node_modules"
   ]
