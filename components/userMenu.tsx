@@ -1,50 +1,43 @@
-'use client'
-import { CircleUser} from "lucide-react"
+'use client';
+import { CircleUser } from "lucide-react";
 //firebase
-import {  useAuth } from '@/app/context/AuthContext';
-import { Button } from "./ui/button"
-import { DropdownMenu,DropdownMenuContent,DropdownMenuItem,DropdownMenuLabel,DropdownMenuSeparator,DropdownMenuTrigger,} from "@/components/ui/dropdown-menu"
-import Link from "next/link"
+import { useAuth } from '@/app/context/AuthContext';
+import { Button } from "./ui/button";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect , useState } from "react";
+import { useEffect, useState } from "react";
 
-interface UserData {
-  uid : string;
-  phoneNumber:string | null;
-}
-
-export default function UserMenu(){
-
-  const {user ,signInWithPhone , logOut } = useAuth()
-
+export default function UserMenu() {
+  const { user, logOut } = useAuth();
   const router = useRouter();
-  const [userData, setUserData] = useState<UserData | null>(null);
+  const [userData, setUserData] = useState(null);
 
- useEffect(()=>{
-  if(user){
-    const {uid , phoneNumber} = user;
-    setUserData ({uid , phoneNumber});
-  }else{
-    setUserData(null);
-  }
+  console.log('user info is :' , user);
 
- } , [user]);
 
- 
+  useEffect(() => {
+    if (user) {
+      setUserData(user);
+    } else {
+      setUserData(null);
+    }
+  }, [user]);
+
   const handleLogout = async () => {
     try {
-      await logOut()
+      await logOut();
       router.push('/');
     } catch (error) {
       console.error('Error logging out:', error);
     }
   };
 
-    return(
-      <>
-      {user ? (
+  return (
+    <>
+      {userData ? (
         <div>
-        <DropdownMenu>
+          <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="secondary" size="icon" className="rounded-full">
                 <CircleUser className="h-5 w-5" />
@@ -52,31 +45,30 @@ export default function UserMenu(){
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Dear {user.name} </DropdownMenuLabel>
+              <DropdownMenuLabel>Dear {userData.name}</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <Link href="/dashboard/notifications">
-              <DropdownMenuItem>Notifications</DropdownMenuItem>
+                <DropdownMenuItem>Notifications</DropdownMenuItem>
               </Link>
               <Link href="/dashboard/jobs">
-              <DropdownMenuItem>Jobs</DropdownMenuItem>
+                <DropdownMenuItem>Jobs</DropdownMenuItem>
               </Link>
               <Link href="/dashboard/wallet">
-              <DropdownMenuItem>Wallet</DropdownMenuItem>
+                <DropdownMenuItem>Wallet</DropdownMenuItem>
               </Link>
               <Link href="/dashboard/settings">
-              <DropdownMenuItem>Settings</DropdownMenuItem>
+                <DropdownMenuItem>Settings</DropdownMenuItem>
               </Link>
               <Link href="/dashboard">
-              <DropdownMenuItem>Dashboard</DropdownMenuItem>
+                <DropdownMenuItem>Dashboard</DropdownMenuItem>
               </Link>
               <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-          </div>
-      
-      ):(
-        <Link href={'/auth/login'}><Button> SignIn</Button></Link>
+        </div>
+      ) : (
+        <Link href={'/auth/login'}><Button>Sign In</Button></Link>
       )}
-      </>
-    )
+    </>
+  );
 }

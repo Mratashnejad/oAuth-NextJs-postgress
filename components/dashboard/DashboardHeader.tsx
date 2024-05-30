@@ -10,13 +10,15 @@ import { Button } from "@/components/ui/button"
 import { UserData } from '../../types/types';
 
 import { useAuth }  from '@/app/context/AuthContext';
+
+
 import { useEffect , useState} from 'react';
 import { CircleUser, Menu, Package2, Search , Bell , CirclePlus } from "lucide-react"
 import { getUserNameProfile } from '@/app/api/users/api'; 
 import UserMenu from '../userMenu'
 import NotificationMenu from '../notificationMenu'
 import PostJobButton from '../PostJobButton';
-import SearchInput from '../searchInput'
+import SearchInput from '../searchInput';
 
 
 export default function Header() {

@@ -18,8 +18,14 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     const token = Cookies.get('authToken');
     if(token){
-      const user  = decodeToken(token);
-      setUser(user);
+      axios.get('/api/auth', {params:{token}})
+      .then(response=>{
+        setUser(response.data.decodeToken);
+      })
+      .catch(error=>{
+        console.error('error decoding token' , error)
+        setUser(null)
+      });
 
     }else {
 

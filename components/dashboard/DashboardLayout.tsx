@@ -37,6 +37,8 @@ const DashboardLayout = ({ title , children }: DashboardLayoutProps) => {
                 {children}
               </main>
             </div>
+
+            
           
           </ThemeProvider>
         </AuthContextProvider>

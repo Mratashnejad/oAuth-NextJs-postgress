@@ -1,7 +1,9 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+
 import { useAuth } from '@/app/context/AuthContext';
+
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import UserInfoForm from '@/components/forms/UserInfoForm';
@@ -10,47 +12,42 @@ import UserEmergencyContentForm from '@/components/forms/UserEmergencyContentFro
 import DashboardLayout from '@/components/dashboard/DashboardLayout';
 
 //API
-import { getUserData, setUserInfoData } from '@/app/api/users/api';
 import { UserData } from '../../../types/types';
+import axios from 'axios';
 
 export default function Settings() {
   const { user } = useAuth();
-  const router = useRouter();
-  const [activeSession, setActiveSession] = useState('userInformation');
-  const [userData, setUserData] = useState<UserData | null>(null);
+  const   router = useRouter();
+  const [ activeSession, setActiveSession] = useState('userInformation');
+  const [ userData, setUserData ] = useState<UserData | null>(null);
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        if (user) {
-          const data = await getUserData(user._id);
-          setUserData(data);
-        } else {
-          setUserData(null);
-        }
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
-    };
-    fetchUserData();
+    if (user) {
+      setUserData(user);
+    } else {
+      setUserData(null);
+    }
   }, [user]);
+
 
   const handleNavigation = (section: string) => {
     setActiveSession(section);
   };
 
   const handleSaveUserInfo = async (data: UserData) => {
-    try {
-      if (data) {
-        await setUserInfoData(user._id, data);
-        console.log('User information updated successfully');
-        const newData = await getUserData(user._id);
-        setUserData(newData);
-      }
-    } catch (error) {
-      console.error('Error updating user information:', error);
+  try {
+    if(user){
+      setUserData(data);
+      const response = await axios.patch(`/api/users/${user._id}`, data);
+      setUserData(response.data.user)
+      console.log('User information Updated Successfully')
     }
-  };
+    
+  } catch (error) {
+    console.error('Error updating user information' , error)
+  }
+  }
+
 
   return (
     <DashboardLayout title='Setting'>

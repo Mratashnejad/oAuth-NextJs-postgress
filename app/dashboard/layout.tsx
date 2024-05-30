@@ -1,7 +1,5 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import Footer from '@/components/footer';
-import { ThemeProvider } from '@/components/theme-provider';
 import { AuthContextProvider } from '@/app/context/AuthContext';
 import '@/css/globals.css';
 
