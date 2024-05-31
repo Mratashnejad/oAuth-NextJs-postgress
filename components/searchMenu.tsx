@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from './ui/button';
 import { Search } from 'lucide-react';
-import armenianCitiesData from '@/public/data/armenian-cities.json'
+import cities from '@/public/data/cities.json'
 
 export function SearchMenu() {
   const [selectedCity, setSelectedCity] = useState('yerevan'); // Default to Yerevan
@@ -29,7 +29,7 @@ export function SearchMenu() {
             onChange={handleCityChange}
           >
             {/* Map over the array of cities to create options in the dropdown */}
-            {armenianCitiesData.map((city, index) => (
+            {cities.map((city, index) => (
               <option key={index} value={city.name.toLowerCase()}>
                 {city.name}
               </option>
@@ -59,7 +59,7 @@ export function SearchMenu() {
               onChange={handleDistrictChange}
             >
               {/* Map over the districts of the selected city to create options in the dropdown */}
-              {armenianCitiesData.find((city) => city.name.toLowerCase() === selectedCity)?.districts.map((district, index) => (
+              {cities.find((city) => city.name.toLowerCase() === selectedCity)?.districts.map((district, index) => (
                 <option key={index} value={district.toLowerCase()}>
                   {district}
                 </option>

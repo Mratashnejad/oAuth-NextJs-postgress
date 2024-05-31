@@ -5,7 +5,7 @@ import Address from '../../../../../models/address/UserAddressSchema'
 
 
 export async function PATCH(request,{params}){
-    console.log('Recived request at /api/address/[userId]');
+    console.log('Recived request at /api/address/[userId]/[userAddress]');
     console.log('Requset method : ', request.method);
 
     try {

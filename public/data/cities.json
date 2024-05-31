@@ -1,0 +1,16 @@
+[
+    {
+      "name": "Yerevan",
+      "districts": ["Nork Marash", "Nor Nork", "Kentron", "Arabkir", "Avan", "Davtashen"]
+    },
+    {
+      "name": "Gyumri",
+      "districts": ["Shirak", "Kumayri", "Abovyan", "Ayrum", "Gharibjanyan"]
+    },
+    {
+      "name": "Dilijan",
+      "districts": ["Center", "Getahovit", "Haghartsin", "Parz Lich", "Kolatak", "Aghavnavank"]
+    }
+
+  ]
+  
