@@ -15,11 +15,7 @@ const UserSchema = new mongoose.Schema ({
     bio : {type : String},
     
      // User Language
-    language: [{ 
-    type: String,
-    enum: ['English', 'Armenian', 'Russian', 'Persian', 'Indian'],
-    default: ['English']
-        }],
+    language: [{type: String}],
     
     // user Address
     addresses: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Address' }], // Reference to Address model

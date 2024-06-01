@@ -5,11 +5,18 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import  languages  from '@/public/data/languages.json'
+import languages from '@/public/data/languages.json';
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { Card, CardContent } from '@/components/ui/card';
 
 interface Language {
-  id: string,
-  label : string,
+  id: string;
+  label: string;
 }
 
 interface UserInfoFormProps {
@@ -38,7 +45,7 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ userData, onSave }) => {
       bio,
       language: selectedLanguages,
     });
-    setIsEditing(false);
+    setIsEditing(false); // Close the dialog after saving
   };
 
   const handleLanguageChange = (language: string, isChecked: boolean) => {
@@ -50,66 +57,97 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({ userData, onSave }) => {
   };
 
   return (
-    <form>
-      <div>
-        <Label htmlFor='name'>Name:</Label>
-        <Input
-          type='text'
-          id='name'
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          readOnly={!isEditing}
-        />
-      </div>
-      <div>
-        <Label htmlFor="family">Family:</Label>
-        <Input
-          type="text"
-          id="family"
-          value={family}
-          onChange={(e) => setFamily(e.target.value)}
-          readOnly={!isEditing}
-        />
-      </div>
-      <div>
-        <Label htmlFor="email">Email:</Label>
-        <Input
-          type="email"
-          id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          readOnly={!isEditing}
-        />
-      </div>
-      <div>
-        <Label htmlFor="bio">Bio:</Label>
-        <Textarea
-          id="bio"
-          value={bio}
-          onChange={(e) => setBio(e.target.value)}
-          readOnly={!isEditing}
-        />
-      </div>
-      <div>
-        <Label>Languages</Label>
-        {languages.map((lang) => (
-          <div key={lang.id} className="flex items-center space-x-2">
-            <Checkbox
-              id={lang.id}
-              checked={selectedLanguages.includes(lang.id)}
-              onCheckedChange={(isChecked) => handleLanguageChange(lang.id, isChecked as boolean)}
-              disabled={!isEditing}
-            />
-            <Label htmlFor={lang.id}>{lang.label}</Label>
+    <>
+      <Card>
+        <CardContent>
+          <div className="mb-4">
+            <Label>Name:</Label>
+            <div>{name}</div>
           </div>
-        ))}
-      </div>
-      {isEditing ? (
-        <Button type="button" onClick={handleSaveClick}>Save</Button>
-      ) : (
-        <Button type="button" onClick={() => setIsEditing(true)}>Edit</Button>
-      )}
-    </form>
+          <div className="mb-4">
+            <Label>Family:</Label>
+            <div>{family}</div>
+          </div>
+          <div className="mb-4">
+            <Label>Email:</Label>
+            <div>{email}</div>
+          </div>
+          <div className="mb-4">
+            <Label>Bio:</Label>
+            <div>{bio}</div>
+          </div>
+          <div className="mb-4">
+            <Label>Selected Languages:</Label>
+            {languages
+              .filter((lang) => selectedLanguages.includes(lang.id))
+              .map((lang) => (
+                <div key={lang.id}>
+                  {lang.label}
+                </div>
+              ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      <Dialog open={isEditing} onOpenChange={setIsEditing}>
+        <DialogTrigger asChild>
+          <Button>Edit</Button>
+        </DialogTrigger>
+        <DialogContent className="shadow-md p-4 bg-white rounded-lg">
+          <div className="mb-4">
+            <Label>Name:</Label>
+            <Input
+              type='text'
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full"
+            />
+          </div>
+          <div className="mb-4">
+            <Label>Family:</Label>
+            <Input
+              type="text"
+              value={family}
+              onChange={(e) => setFamily(e.target.value)}
+              className="w-full"
+            />
+          </div>
+          <div className="mb-4">
+            <Label>Email:</Label>
+            <Input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full"
+            />
+          </div>
+          <div className="mb-4">
+            <Label>Bio:</Label>
+            <Textarea
+              value={bio}
+              onChange={(e) => setBio(e.target.value)}
+              className="w-full"
+            />
+          </div>
+          <div className="mb-4">
+            <Label>Languages:</Label>
+            {languages.map((lang) => (
+              <div key={lang.id} className="flex items-center space-x-2">
+                <Checkbox
+                  id={lang.id}
+                  checked={selectedLanguages.includes(lang.id)}
+                  onCheckedChange={(isChecked) => handleLanguageChange(lang.id, isChecked as boolean)}
+                />
+                <Label htmlFor={lang.id}>{lang.label}</Label>
+              </div>
+            ))}
+          </div>
+          <DialogFooter>
+            <Button type="button" onClick={handleSaveClick}>Save</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 };
 

@@ -54,10 +54,11 @@ export async function GET(request, { params }) {
 
         const   jobs = await Job.find({customerId : userId});  
         if (!jobs || jobs.length === 0){
-            return  NextResponse.json({message: 'No Jobs Fount for this user'},{status :404})
+            return  NextResponse.json({message: 'No Jobs Found for this user'},{status :404})
         }
 
-        return NextResponse.json({ message: 'Jobs found', jobs });
+        return NextResponse.json({ message: 'Jobs found', jobs } , {status:201});
+        
 
     } catch (error) {
         console.error('Error fetching jobs:', error);

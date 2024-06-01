@@ -8,9 +8,16 @@ export interface UserData {
     avatar?:string;
     bio?:string;
     language?:string[];
+    emergencyContact:{
+        name:string
+        relationship :string ,
+        phoneNumber : string,
+    },
+    emergencyNumber : string,
 }
 
 export interface UserAddress {
+    _id?:string;
     userId?:string;
     city?:string ;
     country?:string;
