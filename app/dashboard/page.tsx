@@ -1,9 +1,4 @@
-
 import { Metadata } from "next"
-import Image from "next/image"
-import Link from "next/link";
-import { Button } from '@/components/ui/button';
-
 import {
   Card,
   CardContent,
@@ -11,18 +6,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs"
-
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-// Additional imports if needed
-import DashboardLayout from '@/components/dashboard/DashboardLayout'; // Adjust the path if necessary
-
 export const metadata: Metadata = {
   title: "Dashboard",
   description: "Example dashboard app built using the components.",
@@ -30,7 +19,6 @@ export const metadata: Metadata = {
 
 export default function DashboardPage() {
   return (
-    <DashboardLayout title='Dashboard'>
       <div className="flex min-h-screen w-full flex-col">
         <div className="hidden flex-col md:flex">
           <div className="flex-1 space-y-4 p-8 pt-6">
@@ -177,6 +165,5 @@ export default function DashboardPage() {
           </div>
         </div>
       </div>
-    </DashboardLayout>
   )
 }

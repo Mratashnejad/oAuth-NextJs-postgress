@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '@/app/context/AuthContext';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import DashboardLayout from '@/components/dashboard/DashboardLayout';
 import axios from 'axios';
 import { UserData, UserAddress } from '@/types/types';
 
@@ -157,7 +156,6 @@ export default function Settings() {
   };
 
   return (
-    <DashboardLayout title='Settings'>
       <Tabs defaultValue='userInformation' onValueChange={(value) => setActiveTab(value)}>
         <TabsList>
           <TabsTrigger value='userInformation'>User Information</TabsTrigger>
@@ -206,6 +204,5 @@ export default function Settings() {
           />
         </TabsContent>
       </Tabs>
-    </DashboardLayout>
   );
 }

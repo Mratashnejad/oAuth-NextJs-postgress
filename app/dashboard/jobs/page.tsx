@@ -1,11 +1,8 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { useAuth } from '@/app/context/AuthContext';
-import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { UserData ,UserAddress , UserJobs} from '@/types/types'
-import DashboardLayout from '@/components/dashboard/DashboardLayout';
 import axios from 'axios';
 import PostingJobTab from '@/components/dashboard/PostingJobTab';
 export default function Jobs() {
@@ -31,7 +28,6 @@ export default function Jobs() {
 
 
   return (
-    <DashboardLayout title ='Jobs'>
       <Tabs defaultValue='PostingJob' onValueChange={(value)=> setActiveTab(value)}>
       <TabsList>
         <TabsTrigger value='PostingJob'>Posting Job</TabsTrigger>
@@ -43,6 +39,5 @@ export default function Jobs() {
         <PostingJobTab userData={userData} handlePostJob={handlePostJob}/>
       </TabsContent>
       </Tabs>
-    </DashboardLayout>
   );
 }

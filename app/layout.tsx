@@ -1,5 +1,4 @@
-'use client';
-
+'use client'
 import { Inter } from 'next/font/google';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
@@ -8,7 +7,6 @@ import { Toaster } from '@/components/ui/toaster';
 import { AuthContextProvider } from '@/app/context/AuthContext';
 import '@/css/globals.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
-
 const inter = Inter({ subsets: ['latin'] });
 
 interface RootLayoutProps {
@@ -22,8 +20,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
     },
   });
 
+
+  
   return (
-    <html lang='en' className='scroll-smooth antialiased' suppressHydrationWarning>
+    <html lang='en'>
       <body className={`flex min-h-screen flex-col ${inter.className}`}>
         <QueryClientProvider client={queryClient}>
           <AuthContextProvider>
@@ -32,7 +32,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
               attribute='class'
               defaultTheme='system'
               disableTransitionOnChange>
-              <Header />
+              <Header />  
               <main className='flex-grow'>{children}</main>
               <Toaster />
               <Footer />

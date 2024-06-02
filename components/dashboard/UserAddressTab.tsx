@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
@@ -68,49 +68,66 @@ const UserAddressTab: React.FC<UserAddressTabProps> = ({
   setDetails,
 }) => {
   return (
-    <Card className="shadow-md">
-      <CardHeader>
-        <CardTitle>User Address</CardTitle>
-        <CardDescription>Edit or update your address</CardDescription>
+    <Card className="shadow-lg border rounded-lg overflow-hidden">
+      <CardHeader className="">
+        <CardTitle className="text-2xl">User Address</CardTitle>
+        <CardDescription className="mt-2">Edit or update your address</CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-6">
         {userAddresses.length > 0 ? (
-          userAddresses.map((address) => (
-            address && address._id ? (
-              <div key={address._id} className="mb-4 border-b border-gray-200 pb-4">
-                <div className="mb-2 text-gray-700">
-                  <span className="font-bold">ID:</span> {address._id} | 
-                  <span className="font-bold">City:</span> {address.city} | 
-                  <span className="font-bold">State:</span> {address.state} | 
-                  <span className="font-bold">Country:</span> {address.country}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {userAddresses.map((address) => (
+              address && address._id ? (
+                <div key={address._id} className="p-4 border rounded-lg shadow-sm hover:shadow-lg transition-shadow">
+                  <div className="mb-2">
+                    <span className="font-bold">City:</span> {address.city}
+                  </div>
+                  <div className="mb-2">
+                    <span className="font-bold">State:</span> {address.state}
+                  </div>
+                  <div className="mb-2">
+                    <span className="font-bold">Country:</span> {address.country}
+                  </div>
+                  <div className="mb-2">
+                    <span className="font-bold">Zip Code:</span> {address.zipcode}
+                  </div>
+                  <div className="mb-2">
+                    <span className="font-bold">Apartment:</span> {address.apartment}
+                  </div>
+                  <div className="mb-2">
+                    <span className="font-bold">House Number:</span> {address.houseNumber}
+                  </div>
+                  <div className="mb-2">
+                    <span className="font-bold">Plate:</span> {address.plate}
+                  </div>
+                  <div className="mb-2">
+                    <span className="font-bold">Door Color:</span> {address.doorColor}
+                  </div>
+                  <div className="mb-2">
+                    <span className="font-bold">Details:</span> {address.details}
+                  </div>
+                  <Button variant='outline' onClick={() => handleEditAddress(address)} className="mt-2">
+                    Edit
+                  </Button>
                 </div>
-                <div className="mb-2 text-gray-700">
-                  <span className="font-bold">Zip Code:</span> {address.zipcode}
-                </div>
-                <div className="mb-2 text-gray-700">
-                  <span className="font-bold">Address:</span> {address.apartment}, <span className="font-bold">House Number:</span> {address.houseNumber}, <span className="font-bold">Plate:</span> {address.plate}
-                </div>
-                <div className="mb-2 text-gray-700">
-                  <span className="font-bold">Details:</span> {address.details}
-                </div>
-                <Button variant='outline' onClick={() => handleEditAddress(address)}>Edit</Button>
-              </div>
-            ) : null
-          ))
+              ) : null
+            ))}
+          </div>
         ) : (
-          <div>No addresses found.</div>
+          <div className="text-center text-gray-500">No addresses found.</div>
         )}
-
-        <Dialog open={addAddress} onOpenChange={setAddAddress}>
-          <DialogTrigger asChild>
-            <Button variant='outline' onClick={handleAddAddress}>Add Address</Button>
-          </DialogTrigger>
-          <DialogContent className='sm:max-w-[425px]'>
-            <DialogHeader>
-              <DialogTitle>{isEditing ? 'Edit Address' : 'Add Address'}</DialogTitle>
-            </DialogHeader>
-            <div className='grid gap-4 py-4'>
-              <div className='grid grid-cols-2 gap-4'>
+        <div className="mt-6 flex justify-center">
+          <Dialog open={addAddress} onOpenChange={setAddAddress}>
+            <DialogTrigger asChild>
+              <Button variant='primary' onClick={handleAddAddress} className="hover:bg-blue-600">
+                Add Address
+              </Button>
+            </DialogTrigger>
+            <DialogContent className='sm:max-w-[600px] bg-white p-6 rounded-lg shadow-lg'>
+              <DialogHeader>
+                <DialogTitle className="text-xl font-semibold">{isEditing ? 'Edit Address' : 'Add Address'}</DialogTitle>
+              </DialogHeader>
+              <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 py-4'>
                 <div>
                   <Label htmlFor='city'>City:</Label>
                   <Input type='text' id='city' value={city} onChange={(e) => setCity(e.target.value)} className="h-10" />
@@ -147,17 +164,19 @@ const UserAddressTab: React.FC<UserAddressTabProps> = ({
                   <Label htmlFor='doorColor'>Door Color:</Label>
                   <Input type='text' id='doorColor' value={doorColor} onChange={(e) => setDoorColor(e.target.value)} className="h-10" />
                 </div>
-                <div>
+                <div className="col-span-2">
                   <Label htmlFor='details'>Details:</Label>
                   <Textarea id='details' value={details} onChange={(e) => setDetails(e.target.value)} className="h-20" />
                 </div>
               </div>
-            </div>
-            <DialogFooter>
-              <Button type='submit' onClick={handleSaveAddress}>Save</Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
+              <DialogFooter>
+                <Button type='submit' onClick={handleSaveAddress} className="bg-indigo-500 text-white hover:bg-indigo-600">
+                  Save
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        </div>
       </CardContent>
     </Card>
   );

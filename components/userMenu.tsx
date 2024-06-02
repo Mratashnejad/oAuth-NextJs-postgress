@@ -13,9 +13,6 @@ export default function UserMenu() {
   const router = useRouter();
   const [userData, setUserData] = useState(null);
 
-  console.log('user info is :' , user);
-
-
   useEffect(() => {
     if (user) {
       setUserData(user);
