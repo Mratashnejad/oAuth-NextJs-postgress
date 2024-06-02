@@ -85,14 +85,11 @@ export function SearchMenu() {
         <div className="relative flex items-center">
           <Input
             type="search"
-            placeholder="Search for your best expert..."
+            placeholder="Discover top-tier experts..."
             className="w-80 md:w-96"
           />
-          <Button
-            className="ml-2 p-2 text-gray-500 border border-gray-300 rounded-md hover:bg-gray-100 transition-colors focus:outline-none"
-            aria-label="Search"
-          >
-            <Search className="h-6 w-6" />
+          <Button>
+          <Search className="h-6 w-6" />
           </Button>
         </div>
       </div>

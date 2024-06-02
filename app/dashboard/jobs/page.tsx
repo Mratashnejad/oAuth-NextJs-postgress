@@ -3,105 +3,46 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/app/context/AuthContext';
 import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import UserInfoForm from '@/components/forms/UserInfoForm';
-import UserAddressForm from '@/components/forms/UserAddressForm';
-import UserEmergencyContentForm from '@/components/forms/UserEmergencyContentFrom';
-import { getUserData, setUserInfoData } from '@/app/api/users/api';
-import { UserData } from '@/types/types'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { UserData ,UserAddress , UserJobs} from '@/types/types'
 import DashboardLayout from '@/components/dashboard/DashboardLayout';
-
+import axios from 'axios';
+import PostingJobTab from '@/components/dashboard/PostingJobTab';
 export default function Jobs() {
   const { user } = useAuth();
-  const router = useRouter();
   const [activeSession, setActiveSession] = useState('userInformation');
   const [userData, setUserData] = useState<UserData | null>(null);
+  const [activeTab ,setActiveTab] = useState('PostingJob');
+  const [useJobs , setUserJobs] = useState<UserJobs | null>(null);
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        if (user) {
-          const data = await getUserData(user._id);
-          setUserData(data);
-        } else {
-          setUserData(null);
-        }
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
-    };
-    fetchUserData();
-  }, [user]);
-
-  const handleNavigation = (section: string) => {
-    setActiveSession(section);
-  };
-
-  const handleSaveUserInfo = async (data: UserData) => {
+  
+  const handlePostJob = async (userId:string)=>{
     try {
-      if (data) {
-        const response = await setUserInfoData(user._id, data);
-        if (response.ok) {
-          console.log('User information updated successfully');
-        } else {
-          console.error('Failed to update user information');
-        }
+      if(user){
+        const response = await axios.post(`/api/jobs/${userId}`);
+        setUserJobs(response.data.jobs)
+        console.log('Job is posted')
       }
+     
     } catch (error) {
-      console.error('Error updating user information:', error);
+      console.error('Error Posting Job', error);
     }
-  };
+  }
+
 
   return (
     <DashboardLayout title ='Jobs'>
-      {/* <div className="mx-auto grid w-full max-w-6xl gap-2">
-        <h1 className="text-3xl font-semibold">Jobs</h1>
-      </div> */}
-      <div className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
-        <nav className="grid gap-4 text-sm text-muted-foreground">
-          <Button variant="link" className="font-semibold text-primary" onClick={() => handleNavigation('userInformation')}>
-            Post JOB
-          </Button>
-          <Button variant="link" className="font-semibold text-primary" onClick={() => handleNavigation('userAddress')}>
-            Active Jobs
-          </Button>
-          <Button variant="link" className="font-semibold text-primary" onClick={() => handleNavigation('userEmergencyContent')}>
-            Inprocess Jobs
-          </Button>
-          <Button variant="link" className="font-semibold text-primary" onClick={() => handleNavigation('userEmergencyContent')}>
-            Finished Jobs
-          </Button>
-        </nav>
-        {activeSession === 'userInformation' && (
-          <div className="grid gap-6">
-            {userData ? (
-              <Card>
-                <CardHeader>
-                  <CardTitle>User Information</CardTitle>
-                  <CardDescription>Details about the User {userData.phoneNumber}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <UserInfoForm userData={userData} onSave={handleSaveUserInfo} />
-                </CardContent>
-              </Card>
-            ) : (
-              <div>Loading User data ...</div>
-            )}
-          </div>
-        )}
-        {activeSession === 'userAddress' && (
-          <UserAddressForm />
-        )}
-        {activeSession === 'userEmergencyContent' && (
-          <UserEmergencyContentForm />
-        )}
-      </div>
+      <Tabs defaultValue='PostingJob' onValueChange={(value)=> setActiveTab(value)}>
+      <TabsList>
+        <TabsTrigger value='PostingJob'>Posting Job</TabsTrigger>
+        <TabsTrigger value='CurrentJobs'>CurrentJob</TabsTrigger>
+        <TabsTrigger value='InProcessJobs'>In Proccess</TabsTrigger>
+        <TabsTrigger value='FinishedJobs'>Finished Jobs</TabsTrigger>
+      </TabsList>
+      <TabsContent value='PostingJob'>
+        <PostingJobTab userData={userData} handlePostJob={handlePostJob}/>
+      </TabsContent>
+      </Tabs>
     </DashboardLayout>
   );
 }

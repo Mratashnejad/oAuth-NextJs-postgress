@@ -30,3 +30,15 @@ export interface UserAddress {
     doorColor?: string ;
     details?:string ;
 }
+
+export interface UserJobs{
+    _id?:string,
+    customerId?:string,
+    expertId?:string,
+    categoryId?:string,
+    addresess?:string,
+    price?:number,
+    description?:string,
+    estimatedTime?:string,
+    status?:string,
+}

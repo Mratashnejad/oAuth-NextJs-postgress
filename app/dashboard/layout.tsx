@@ -1,15 +1,14 @@
-import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { AuthContextProvider } from '@/app/context/AuthContext';
 import '@/css/globals.css';
-
+import DashboadHeader from '@/components/dashboard/DashboardHeader';
 const inter = Inter({ subsets: ['latin'] });
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
 }
 
-export const metadata: Metadata = {
+export const metadata = {
   title: 'Dashboard',
   description: 'Dashboard Area',
 };
@@ -19,14 +18,8 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
     <html lang='en' className='scroll-smooth antialiased' suppressHydrationWarning>
       <body className={`flex min-h-screen flex-col ${inter.className}`}>
         <AuthContextProvider>
-          {/* <ThemeProvider
-            enableSystem
-            attribute='class'
-            defaultTheme='system'
-            disableTransitionOnChange> */}
-            <main className='flex-grow'>{children}</main>
-            
-          {/* </ThemeProvider> */}
+          <DashboadHeader />
+          <main className='flex-grow'>{children}</main>
         </AuthContextProvider>
       </body>
     </html>
