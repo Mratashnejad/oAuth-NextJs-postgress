@@ -8,24 +8,25 @@ import { AuthContextProvider } from '@/app/context/AuthContext';
 import '@/css/globals.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
 const inter = Inter({ subsets: ['latin'] });
-
+import {Provider} from 'react-redux';
+import {store} from '@/utils/store';
 interface RootLayoutProps {
   children: React.ReactNode;
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {
-  const queryClient = new QueryClient({
+  const client = new QueryClient({
     defaultOptions: {
       queries: { refetchOnWindowFocus: false },
+      mutations:{},
     },
   });
 
-
-  
   return (
     <html lang='en'>
       <body className={`flex min-h-screen flex-col ${inter.className}`}>
-        <QueryClientProvider client={queryClient}>
+        <Provider store={store}>
+        <QueryClientProvider client={client}>
           <AuthContextProvider>
             <ThemeProvider
               enableSystem
@@ -39,6 +40,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             </ThemeProvider>
           </AuthContextProvider>
         </QueryClientProvider>
+        </Provider>
       </body>
     </html>
   );
