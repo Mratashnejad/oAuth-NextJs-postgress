@@ -9,7 +9,7 @@ import '@/css/globals.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
 const inter = Inter({ subsets: ['latin'] });
 import {Provider} from 'react-redux';
-import {store} from '@/utils/store';
+import {store} from '@/redux/store';
 interface RootLayoutProps {
   children: React.ReactNode;
 }
@@ -23,7 +23,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   });
 
   return (
-    <html lang='en'>
+    <html lang='en' >
       <body className={`flex min-h-screen flex-col ${inter.className}`}>
         <Provider store={store}>
         <QueryClientProvider client={client}>

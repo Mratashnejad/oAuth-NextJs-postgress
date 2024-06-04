@@ -8,6 +8,8 @@ import { Input } from '@/components/ui/input';
 import {InputOTP,InputOTPGroup,InputOTPSeparator,InputOTPSlot} from "@/components/ui/input-otp"
 import { useToast } from '@/components/ui/use-toast';
 import axios from 'axios';
+import {login ,logout} from '../../../redux/store';
+import {useDispatch , useSelector} from 'react-redux';
 
 export default function Login() {
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -22,6 +24,9 @@ export default function Login() {
   const [errorTimer , setErrorTimer] = useState(0);
   const auth = getAuth(app);
   const router = useRouter();
+
+  const dispatch = useDispatch();
+  const selector = useSelector((state)=> state.user)
 
   useEffect(() => {
     window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
