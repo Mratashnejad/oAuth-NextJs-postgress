@@ -1,0 +1,18 @@
+/* components/ProgressBar.css */
+
+.progress-bar-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: rgba(0, 0, 0, 0.1); /* Darker color for the background */
+    z-index: 1000;
+  }
+  
+  .progress-bar {
+    height: 100%;
+    background-color: #1e90ff; /* Blue color for the progress bar */
+    transition: width 0.5s ease-in-out;
+  }
+  

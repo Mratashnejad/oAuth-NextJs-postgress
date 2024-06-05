@@ -4,14 +4,14 @@ import { SearchMenu } from '@/components/searchMenu';
 import ImageMenu from '@/components/ImageMenu';
 import { useQuery } from 'react-query';
 import Axios from 'axios';
-
+import ProgressBar from '@/components/ProgressBar';
 export default function Home() {
 
   const { data, isLoading, error } = useQuery(['test'], () => {
     return Axios.get('/api/users/').then((res) => res.data);
   });
 
-  if (isLoading) return <div>Loading ...</div>;
+  if (isLoading) return <div><ProgressBar /></div>;
   if (error) return <div>Error loading data</div>;
 
   return (
