@@ -15,18 +15,18 @@ interface RootLayoutProps {
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {
-  const client = new QueryClient({
-    defaultOptions: {
-      queries: { refetchOnWindowFocus: false },
-      mutations:{},
-    },
-  });
+  // const client = new QueryClient({
+  //   defaultOptions: {
+  //     queries: { refetchOnWindowFocus: false },
+  //     mutations:{},
+  //   },
+  // });
 
   return (
     <html lang='en' >
       <body className={`flex min-h-screen flex-col ${inter.className}`}>
         <Provider store={store}>
-        <QueryClientProvider client={client}>
+        {/* <QueryClientProvider client={client}> */}
           <AuthContextProvider>
             <ThemeProvider
               enableSystem
@@ -39,7 +39,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
               <Footer />
             </ThemeProvider>
           </AuthContextProvider>
-        </QueryClientProvider>
+        {/* </QueryClientProvider> */}
         </Provider>
       </body>
     </html>

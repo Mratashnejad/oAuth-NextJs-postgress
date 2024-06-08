@@ -43,24 +43,18 @@ export const AuthContextProvider = ({ children }) => {
         })
         const data = response.data;
         setUser(data.user);
-        const token = generateToken(data.user);
-        Cookies.set('authToken' , token , {expires:1});
-  
+        
       } catch (error) {
 
         if(axios.isAxiosError(error) && error.response && error.response.status == 409){
           // console.log("User already exists");
           const data = error.response.data;
           setUser(data.user);
-          const token = generateToken(data.user);
-          console.log(token)
-          Cookies.set('authToken' , token , {expires : 1})
         }
         console.error('Error fetching user data : ' , error)
       }
      }else{
       setUser(null);
-      Cookies.remove('authToken');
      }
     });
     return () => unsubscribe();

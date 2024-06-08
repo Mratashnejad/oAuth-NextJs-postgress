@@ -7,12 +7,12 @@ import Axios from 'axios';
 import ProgressBar from '@/components/ProgressBar';
 export default function Home() {
 
-  const { data, isLoading, error } = useQuery(['test'], () => {
-    return Axios.get('/api/users/').then((res) => res.data);
-  });
+  // const { data, isLoading, error } = useQuery(['test'], () => {
+  //   return Axios.get('/api/users/').then((res) => res.data);
+  // });
 
-  if (isLoading) return <div><ProgressBar /></div>;
-  if (error) return <div>Error loading data</div>;
+  // if (isLoading) return <div><ProgressBar /></div>;
+  // if (error) return <div>Error loading data</div>;
 
   return (
     <>
@@ -22,13 +22,6 @@ export default function Home() {
             <h1 className="text-5xl font-bold text-accent">Find The Best Around You</h1>
             <p className="text-lg text-muted-foreground mb-4">Discover the finest services and experiences near you.</p>
             <div>
-              {/* Check if data.users is an array and map through it */}
-              {data?.users?.map((user) => (
-                <div key={user.uid}>
-                  <p>Phone Number: {user.name}</p>
-                  <p>Phone Number: {user.phoneNumber}</p>
-                </div>
-              ))}
             </div>
             <SearchMenu />
           </div>

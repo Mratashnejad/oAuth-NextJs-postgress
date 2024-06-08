@@ -1,6 +1,7 @@
 import React from 'react';
 
 export default function Footer() {
+
   return (
     <footer className='flex py-4'>
       <div className='container'>
@@ -8,6 +9,7 @@ export default function Footer() {
           &copy; {new Date().getFullYear()} Gtnelu. All rights reserved.
         </p>
         <div className='flex justify-center'>
+         
           <FooterLink href="/help">Help</FooterLink>
           <FooterLink href="/contact">Contact Us</FooterLink>
           <FooterLink href="/terms">Terms of Service</FooterLink>
