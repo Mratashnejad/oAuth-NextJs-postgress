@@ -1,7 +1,7 @@
 import { verifyAuth } from "@/lib/auth";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function middleware(req :NextRequest){
+export async function middleware(req : NextRequest){
     const token = req.cookies.get('user-token')?.value
 
 
@@ -20,6 +20,7 @@ export async function middleware(req :NextRequest){
     }
 
     const url = req.url
+
     if(!verifiedToken){
         return NextResponse.redirect(new URL('/login' , req.url))
     }
