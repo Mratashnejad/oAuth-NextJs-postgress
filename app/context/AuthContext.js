@@ -5,6 +5,7 @@ import { auth } from '../../configs/FireBaseConfig';
 import { signInWithPhoneNumber, signOut } from 'firebase/auth';
 import Cookies from 'js-cookie';
 import {generateToken , decodeToken } from '@/utils/token';
+import { useRouter } from 'next/navigation';
 
 const AuthContext = createContext();
 
@@ -14,6 +15,7 @@ export const useAuth = () => {
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const router = useRouter()
 
   useEffect(() => {
     const token = Cookies.get('authToken');
@@ -46,12 +48,18 @@ export const AuthContextProvider = ({ children }) => {
         
       } catch (error) {
 
-        if(axios.isAxiosError(error) && error.response && error.response.status == 409){
-          // console.log("User already exists");
-          const data = error.response.data;
-          setUser(data.user);
+        if(axios.isAxiosError(error)){
+          if(error.response && error.response.status == 409){
+            //  console.log("User already exists");
+             const data = error.response.data;
+             setUser(data.user);
+            //  router.push('/dashboard');
+          }else{
+            console.error('Error fetching user data : ' , error)
+          }
+        }else{
+          console.error('Unexpected error:', error);
         }
-        console.error('Error fetching user data : ' , error)
       }
      }else{
       setUser(null);

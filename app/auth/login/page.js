@@ -90,7 +90,6 @@ export default function Login() {
       setPhoneNumber('');
       setCanResend(false);
       setTimer(60);
-
       toast({
         title: 'OTP successfully sent',
         description: 'Please check your mobile phone.',
@@ -135,7 +134,7 @@ export default function Login() {
           description: 'You are logged in to the system.',
         });
         router.push('/dashboard');
-      } else if (response.status === 400) {
+      } else if (response.status === 409) {
         toast({
           title: 'Already registered',
           description: 'You are already registered in the system.',

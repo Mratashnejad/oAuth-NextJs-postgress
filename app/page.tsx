@@ -1,21 +1,43 @@
 'use client';
-import React from 'react';
+import React , { useEffect } from 'react';
 import { SearchMenu } from '@/components/searchMenu';
 import ImageMenu from '@/components/ImageMenu';
-import { useQuery } from 'react-query';
-import Axios from 'axios';
+import { useGetUserData } from './hooks/useGetUserData';
 import ProgressBar from '@/components/ProgressBar';
+import { useRouter } from 'next/navigation';
+import { useToast } from '@/components/ui/use-toast';
+import { ToastAction } from "@/components/ui/toast"
+
+
 export default function Home() {
+  const { toast } = useToast();
+  const {data ,isLoading,isError ,refetch }=useGetUserData();
+  const router = useRouter();
 
-  // const { data, isLoading, error } = useQuery(['test'], () => {
-  //   return Axios.get('/api/users/').then((res) => res.data);
-  // });
+  useEffect(() => {
+    if (isError) {
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+        action: (<ToastAction altText="Try again" onClick={()=>{refetch()}}>Try again</ToastAction>),
+      })
+    }
+  }, [isError,refetch, toast]); // Only re-run the effect if isError or toast changes
 
-  // if (isLoading) return <div><ProgressBar /></div>;
-  // if (error) return <div>Error loading data</div>;
+  if(isLoading) return <h1> <ProgressBar isLoading={true}/> </h1>;
+
 
   return (
     <>
+    <div>
+      {data?.users?.map(i => (
+        <div key={i._id}>
+          <h2>{i.name}</h2>
+          <h3>{i.family}</h3>
+          </div>
+      ))}
+    </div>
       <section className='py-8'>
         <div className="container justify-center items-center">
           <div className="mb-8 text-center">
