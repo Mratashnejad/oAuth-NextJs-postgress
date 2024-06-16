@@ -16,7 +16,8 @@ const UserSchema = new mongoose.Schema ({
     
      // User Language
     language: [{type: String}],
-    
+    rate : {type:mongoose.Schema.Types.ObjectId , ref:'ExpertRating'},
+
     // user Address
     addresses: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Address' }], // Reference to Address model
     //user Categoreis
@@ -30,7 +31,6 @@ const UserSchema = new mongoose.Schema ({
     ],
 
     //Jobs
-
     postedJobs:[{type : mongoose.Schema.Types.ObjectId , ref: 'Job'}], // jobs posted by the user (customer)
     takenJobs :[{type : mongoose.Schema.Types.ObjectId , ref: 'Job'}], // Jobs Taken By the User ( Expert )
 

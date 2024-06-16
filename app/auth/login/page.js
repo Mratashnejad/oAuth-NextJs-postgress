@@ -90,6 +90,7 @@ export default function Login() {
       setPhoneNumber('');
       setCanResend(false);
       setTimer(60);
+
       toast({
         title: 'OTP successfully sent',
         description: 'Please check your mobile phone.',
@@ -117,10 +118,24 @@ export default function Login() {
     if (isSubmitting) return;
     setIsSubmitting(true);
     try {
+      const checkUserResponse = await axios.get(`/api/users/${phoneNumber}`);
+      if(checkUserResponse.status === 200 && checkUserResponse.data.user){
+        toast({
+          title : 'Already registerd',
+          description: 'You are already registered in the system.',
+        })
+      }
+      
       const result = await confirmationResult.confirm(otp);
       const user = result.user;
       const uid = user.uid;
       const phoneNumber = user.phoneNumber;
+
+       const request = await axios.get(`/api/users/${uid}`);
+       if(request.status === 201){
+        console.log('user already exists')
+       }
+
 
       const response = await axios.post(
         '/api/users',
@@ -134,18 +149,21 @@ export default function Login() {
           description: 'You are logged in to the system.',
         });
         router.push('/dashboard');
-      } else if (response.status === 409) {
-        toast({
-          title: 'Already registered',
-          description: 'You are already registered in the system.',
-        });
-        router.push('/');
-      } else {
+      }  else {
         console.log('Failed to create user in MongoDB');
       }
       setOtp('');
     } catch (error) {
+      if(error.response.status === 409){
+        toast({
+          title: 'Already registered',
+          description: 'You are already registered in the system.',
+      })
+      setOtp('');
+      router.push('/')
+    }else{
       console.error(error);
+    }
     } finally {
       setIsSubmitting(false);
     }

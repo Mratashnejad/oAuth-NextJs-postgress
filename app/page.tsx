@@ -7,9 +7,11 @@ import ProgressBar from '@/components/ProgressBar';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/components/ui/use-toast';
 import { ToastAction } from "@/components/ui/toast"
-
+import CardMenu from '@/components/CardMenu';
 
 export default function Home() {
+
+
   const { toast } = useToast();
   const {data ,isLoading,isError ,refetch }=useGetUserData();
   const router = useRouter();
@@ -30,15 +32,7 @@ export default function Home() {
 
   return (
     <>
-    <div>
-      {data?.users?.map(i => (
-        <div key={i._id}>
-          <h2>{i.name}</h2>
-          <h3>{i.family}</h3>
-          </div>
-      ))}
-    </div>
-      <section className='py-8'>
+      <section className='py-2'>
         <div className="container justify-center items-center">
           <div className="mb-8 text-center">
             <h1 className="text-5xl font-bold text-accent">Find The Best Around You</h1>
@@ -47,7 +41,11 @@ export default function Home() {
             </div>
             <SearchMenu />
           </div>
-          <ImageMenu />
+          <div className='flex justify-between'>
+          <CardMenu/>
+          </div>
+          
+          {/* <ImageMenu /> */}
         </div>
       </section>
     </>

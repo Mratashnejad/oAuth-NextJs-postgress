@@ -7,22 +7,17 @@ export async function POST(request) {
   console.log('Received request at /api/users/');
   console.log('Request method:', request.method);
 try {
-
     const { uid   ,  phoneNumber } = await request.json();
-
     //const {uid,phoneNumber , email, name, family, avatar, bio , language , role } = await request.json()
-
     // Connect to the database
     await   connectToDB();
 
     const existingUser = await User.findOne({$or : [{uid},{phoneNumber}]})
     if(existingUser){
       console.log("User already Exists")
-
       return  NextResponse.json({ message: 'User already exists' , user:existingUser }, { status: 409 })
     }
 
-    
     const     user  =   await User.create({ uid , phoneNumber });
     console.log('User created' , user)
     // const   user  =   await   User.create({uid, phoneNumber, email, name, family, avatar, bio , language , role});
