@@ -13,7 +13,7 @@ export const metadata = {
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
   return (
     <>
-      <DashboadHeader />
+      {/* <DashboadHeader /> */}
       <main className='flex-grow'>{children}</main>
     </>
   );

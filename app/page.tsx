@@ -8,7 +8,6 @@ import { useRouter } from 'next/navigation';
 import { useToast } from '@/components/ui/use-toast';
 import { ToastAction } from "@/components/ui/toast"
 import CardMenu from '@/components/CardMenu';
-
 export default function Home() {
 
 
@@ -39,7 +38,6 @@ export default function Home() {
             <p className="text-lg text-muted-foreground mb-4">Discover the finest services and experiences near you.</p>
             <div>
             </div>
-            <SearchMenu />
           </div>
           <div className='flex justify-between'>
           <CardMenu/>
