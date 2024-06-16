@@ -13,6 +13,9 @@ const UserSchema = new mongoose.Schema ({
     family : { type : String},
     avatar : { type : String},
     bio : {type : String},
+    category :{type :String }, // user category should come from the selected category
+    location : {type :String}, // location user country , city
+    skills : {type:String}, // skills 
     
      // User Language
     language: [{type: String}],
