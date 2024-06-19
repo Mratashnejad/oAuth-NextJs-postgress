@@ -2,9 +2,10 @@ import { verifyAuth } from "@/lib/auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function middleware(req : NextRequest){
+
     const token = req.cookies.get('user-token')?.value
-
-
+    console.log('token is ',token)
+  
     const verifiedToken = 
     token && 
     (await verifyAuth(token).catch((err)=>{
@@ -27,5 +28,5 @@ export async function middleware(req : NextRequest){
 }
 
 export const config = {
-    matcher:['/dashboard' , '/auth/login'],
+    matcher:['/dashboard' , '/auth/login' , '/api/users' ,'/api/address'],
 }

@@ -10,6 +10,12 @@ import { Label } from "@/components/ui/label";
 import { useGetUserData } from "@/app/hooks/useGetUserData";
 import { useToast } from '@/components/ui/use-toast';
 import { ToastAction } from "@/components/ui/toast";
+// Function to capitalize the first letter of a string, handling undefined or null
+const capitalizeFirstLetter = (string) => {
+  if (!string) return '';
+
+  return string.charAt(0).toUpperCase() + string.slice(1);
+};
 
 export default function CardMenu() {
   const { toast } = useToast();
@@ -40,7 +46,7 @@ export default function CardMenu() {
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
                 <div className="ml-4">
-                  <div className="font-bold">{user?.name}</div>
+                  <div className="font-bold">{capitalizeFirstLetter(user?.name)}</div>
                   <div className="flex items-center space-x-1">
                     {[...Array(5)].map((_, index) => (
                       <Star key={index} className={`h-4 w-4 ${index < user?.rate?.length ? 'text-yellow-500' : 'text-gray-300'}`} />
@@ -52,9 +58,17 @@ export default function CardMenu() {
               <CardDescription>{user?.bio}</CardDescription>
             </CardHeader>
             <CardContent>
-              <div><Label htmlFor="email">{user?.email}</Label></div>
-              <div><Label htmlFor="language">{user?.language}</Label></div>
-              <div><Label htmlFor="city">{user?.addresses?.city}</Label></div>
+              <div><Label htmlFor="email">{capitalizeFirstLetter(user?.email)}</Label></div>
+              <div className="flex items-center space-x-2">
+                {user?.languages?.map((lang, index) => (
+                  <div key={index} className="flex items-center space-x-1">
+                    {/* You can replace 'flag-icon' with an appropriate icon component */}
+                    <span className="flag-icon bg-gray-200 rounded-full h-6 w-6 flex items-center justify-center">Icon</span>
+                    <Label>{capitalizeFirstLetter(lang)}</Label>
+                  </div>
+                ))}
+              </div>
+              <div><Label htmlFor="city">{capitalizeFirstLetter(user?.addresses?.city)}</Label></div>
               <Label htmlFor="rating">Rating: {user?.rate?.length}</Label>
             </CardContent>
             <CardFooter className="p-4 flex justify-between text-sm text-gray-500">

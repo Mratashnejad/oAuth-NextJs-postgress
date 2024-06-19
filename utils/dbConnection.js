@@ -9,7 +9,7 @@ export const connectToDB = async () => {
 
     // Check
     if (isConnected) {
-        console.log('MongoDB is Already Connected');
+        console.log('MongoDB is already connected');
         return mongoose.connection;
     }
 
@@ -19,11 +19,11 @@ export const connectToDB = async () => {
         });
 
         isConnected = true;
-        console.log('MongoDB is Connected');
+        console.log('MongoDB connected successfully');
         return mongoose.connection;
 
     } catch (error) {
-        console.error('Failed to Connecting to MongoDB', error);
+        console.error('Failed to connect to MongoDB:', error);
         throw error;
     }
 };

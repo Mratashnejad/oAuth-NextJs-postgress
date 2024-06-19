@@ -37,7 +37,10 @@ export async function GET(request , {params}){
     const {userId} = params;
     await connectToDB();
     const user = await User.findOne({userId});
-    return NextResponse.json({message : 'User data are :',user } , {status:200})
+    if(!user){
+      return NextResponse.json({message:'User not Found'} , {status:404})
+    }
+    return NextResponse.json({message : 'User data retrieved',user } , {status:200})
     
   } catch (error) {
     console.error('Error:', error);
