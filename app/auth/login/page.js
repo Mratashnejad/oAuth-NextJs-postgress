@@ -16,12 +16,18 @@ import { useToast } from '@/components/ui/use-toast';
 // jose for JWT handling
 import { jwtVerify, SignJWT } from 'jose';
 
+//token & cookie
+
+import Cookies from 'universal-cookie';
+
+
 const SECRET_KEY = process.env.NEXT_PUBLIC_SITE_KEY;
 
 if (!SECRET_KEY) {
     throw new Error('Secret Key environment variable not set');
 }
 
+const cookies = new Cookies();
 export default function Login() {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [otp, setOtp] = useState('');
@@ -122,10 +128,14 @@ export default function Login() {
     };
 
     const generateToken = async (user) => {
-        return await new SignJWT({ uid: user.uid, phoneNumber: user.phoneNumber })
+       const jwt =  await new SignJWT({ uid: user.uid, phoneNumber: user.phoneNumber })
             .setProtectedHeader({ alg: 'HS256' })
             .setExpirationTime('1d')
             .sign(new TextEncoder().encode(SECRET_KEY));
+        
+        cookies.set('jwt',jwt,{path:'/'})
+        console.log('Genereted token in gereteToken functions : ', jwt)
+        return jwt;
     };
 
     const decodeToken = async (token) => {
@@ -155,7 +165,7 @@ export default function Login() {
                 { uid, phoneNumber },
                 { headers: { 'Content-Type': 'application/json' } }
             );
-            if (response.status === 201) {
+            if (response.status === 201 || response.status === 200) {
                 const token = await generateToken({ uid, phoneNumber });
                 console.log('Generated JWT:', token);
                 toast({
@@ -163,7 +173,7 @@ export default function Login() {
                     description: 'You are logged in to the system.',
                 });
                 setOtp('');
-                router.push('/dashboard');
+                router.push('/')
               }else if(response.status === 409){
               console.log('USER HAS REGISTERD')
               const token = await generateToken({ uid, phoneNumber });

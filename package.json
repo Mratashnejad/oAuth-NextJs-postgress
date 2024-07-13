@@ -69,6 +69,7 @@
     "swr": "^2.2.5",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
+    "universal-cookie": "^7.1.4",
     "yup": "^1.4.0",
     "zod": "^3.23.6"
   },
