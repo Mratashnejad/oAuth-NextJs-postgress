@@ -3,17 +3,16 @@
 import React, { useEffect } from 'react';
 import ProgressBar from "./ProgressBar";
 import { Star } from 'lucide-react';
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { useGetUserData } from "@/app/hooks/useGetUserData";
 import { useToast } from '@/components/ui/use-toast';
 import { ToastAction } from "@/components/ui/toast";
+
 // Function to capitalize the first letter of a string, handling undefined or null
 const capitalizeFirstLetter = (string) => {
   if (!string) return '';
-
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
@@ -42,7 +41,7 @@ export default function CardMenu() {
             <CardHeader>
               <div className='flex items-center'>
                 <Avatar>
-                  <AvatarImage src="https://github.com/shadcn.png" />
+                  <AvatarImage src={user?.avatarUrl || "https://github.com/shadcn.png"} />
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
                 <div className="ml-4">
@@ -62,7 +61,7 @@ export default function CardMenu() {
               <div className="flex items-center space-x-2">
                 {user?.languages?.map((lang, index) => (
                   <div key={index} className="flex items-center space-x-1">
-                    {/* You can replace 'flag-icon' with an appropriate icon component */}
+                    {/* Replace 'flag-icon' with an appropriate icon component */}
                     <span className="flag-icon bg-gray-200 rounded-full h-6 w-6 flex items-center justify-center">Icon</span>
                     <Label>{capitalizeFirstLetter(lang)}</Label>
                   </div>

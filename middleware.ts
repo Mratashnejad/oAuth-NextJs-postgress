@@ -1,32 +1,30 @@
-import { verifyAuth } from "@/lib/auth";
 import { NextRequest, NextResponse } from "next/server";
+import { jwtVerify } from "jose";
+import Cookies from "universal-cookie";
+
+const SECRET_KEY = process.env.NEXT_PUBLIC_SITE_KEY;
 
 export async function middleware(req : NextRequest){
-
-    const token = req.cookies.get('user-token')?.value
+    const cookies = new Cookies(req.headers.getSetCookie());
+    const token = req.cookies.get('jwt')?.value
     console.log('token is ',token)
-  
-    const verifiedToken = 
-    token && 
-    (await verifyAuth(token).catch((err)=>{
-        console.error(err.message)
-    }))
-
-    if(req.nextUrl.pathname.startsWith('/auth/login')&& !verifiedToken){
-        return
+    
+    if(!token){
+        return NextResponse.redirect(new URL('auth/login',req.url))
     }
 
-    if(req.url.includes('/auth/login') && verifiedToken){
-        return NextResponse.redirect(new URL('/dashboard' , req.url))
-    }
+    // try {
+    //     const {payload} = await jwtVerify(token, new TextEncoder().encode(SECRET_KEY));
+    //     req.user = payload;
+    //     return NextResponse.next();
 
-    const url = req.url
+    // } catch (error) {
+    //     console.error('JWT verification Failed:' , error);
+    //     return NextResponse.redirect(new URL('auth/login' , req.url))
+    // }
 
-    if(!verifiedToken){
-        return NextResponse.redirect(new URL('/auth/login' , req.url))
-    }
 }
-
-export const config = {
-    matcher:['/dashboard' , '/auth/login' , '/api/users' ,'/api/address'],
-}
+    export const config = {
+        matcher: ['/Dashboard'], // Adjust this matcher based on your protected routes
+      }
+    

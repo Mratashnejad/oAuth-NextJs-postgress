@@ -12,7 +12,7 @@ export default function Home() {
 
 
   const { toast } = useToast();
-  const {data ,isLoading,isError ,refetch }=useGetUserData();
+  const {data ,isLoading,isError ,refetch }= useGetUserData();
   const router = useRouter();
 
   useEffect(() => {

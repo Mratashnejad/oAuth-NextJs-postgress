@@ -10,15 +10,15 @@ export const useGetUserData=()=>{
    })
 }
 
-export const useGetUserById=(userId)=>{
-    return useQuery(['useGetUserById',userId], async()=>{
-      if(!userId){
-         throw new Error ('no userId provided');
-      }
-       const response = await axios.get(`/api/users/${userId}`);
-       return response.data;
-    },{
-      enabled:!!userId, //Only run this query if userId is truthy
-    });
+// export const useGetUserById=(userId)=>{
+//     return useQuery(['useGetUserById',userId], async()=>{
+//       if(!userId){
+//          throw new Error ('no userId provided');
+//       }
+//        const response = await axios.get(`/api/users/${userId}`);
+//        return response.data;
+//     },{
+//       enabled:!!userId, //Only run this query if userId is truthy
+//     });
 
-}
+// }

@@ -19,8 +19,7 @@ export const generateToken = async (user: User): Promise<string> => {
         .setProtectedHeader({ alg: 'HS256' })
         .setExpirationTime('1d')
         .sign(new TextEncoder().encode(SECRET_KEY));
-
-    console.log('jwt:', jwt);
+    // console.log('jwt:', jwt);
     return jwt;
 };
 

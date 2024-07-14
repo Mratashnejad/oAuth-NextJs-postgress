@@ -1,30 +1,18 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { useAuth } from '@/app/context/AuthContext';
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { UserData ,UserAddress , UserJobs} from '@/types/types'
 import axios from 'axios';
 import PostingJobTab from '@/components/dashboard/PostingJobTab';
 export default function Jobs() {
-  const { user } = useAuth();
+
   const [activeSession, setActiveSession] = useState('userInformation');
   const [userData, setUserData] = useState<UserData | null>(null);
   const [activeTab ,setActiveTab] = useState('PostingJob');
   const [useJobs , setUserJobs] = useState<UserJobs | null>(null);
 
-  
-  const handlePostJob = async (userId:string)=>{
-    try {
-      if(user){
-        const response = await axios.post(`/api/jobs/${userId}`);
-        setUserJobs(response.data.jobs)
-        console.log('Job is posted')
-      }
-     
-    } catch (error) {
-      console.error('Error Posting Job', error);
-    }
-  }
+ 
 
 
   return (
@@ -36,7 +24,7 @@ export default function Jobs() {
         <TabsTrigger value='FinishedJobs'>Finished Jobs</TabsTrigger>
       </TabsList>
       <TabsContent value='PostingJob'>
-        <PostingJobTab userData={userData} handlePostJob={handlePostJob}/>
+        {/* <PostingJobTab userData={userData} handlePostJob={handlePostJob}/> */}
       </TabsContent>
       </Tabs>
   );

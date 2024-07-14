@@ -28,7 +28,11 @@ if (!SECRET_KEY) {
 }
 
 const cookies = new Cookies();
+
+
+
 export default function Login() {
+    let isAuthunticated = false;
     const [phoneNumber, setPhoneNumber] = useState('');
     const [otp, setOtp] = useState('');
     const [confirmationResult, setConfirmationResult] = useState(null);
@@ -92,6 +96,7 @@ export default function Login() {
     };
 
     const handleSendOtp = async () => {
+
         if (!canResend) return;
 
         try {
@@ -173,17 +178,20 @@ export default function Login() {
                     description: 'You are logged in to the system.',
                 });
                 setOtp('');
+                isAuthunticated = true;
                 router.push('/')
-              }else if(response.status === 409){
-              console.log('USER HAS REGISTERD')
-              const token = await generateToken({ uid, phoneNumber });
-              console.log('Generated JWT:', token);
-              toast({
-                title: 'Logged in successfully',
-                description: 'You are already registed to our system.',
-                
+              }else if(response.status.error === 409){
+                const token = await generateToken({ uid, phoneNumber });
+                console.log('Generated JWT:', token);
+                console.log('USER HAS REGISTERD')
+                toast({
+                    title: 'Logged in successfully',
+                    description: 'You are already registed to our system.',
+                    
             });
+
             setOtp('');
+            isAuthunticated = true;
             router.push('/');
           }
         } catch (error) {
@@ -201,6 +209,7 @@ export default function Login() {
                   title: 'Error',
                   description: 'your one Time passowrd Has been expired',
               });
+              router.push('/auth/login')
           }else {
             console.error(error);
             toast({
@@ -256,4 +265,4 @@ export default function Login() {
             </div>
         </>
     );
-}
+}   

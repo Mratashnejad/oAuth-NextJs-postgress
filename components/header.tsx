@@ -3,7 +3,7 @@ import { LanguageToggle } from './language-toggle';
 import SearchInput from '@/components/searchInput';
 import NotificationMenu from '@/components/notificationMenu';
 import PostJobButton from '@/components/postJobButton';
-import UserMenu from './userMenu';
+// import UserMenu from './userMenu';
 import React, { useState } from 'react';
 import Link from 'next/link';
 
@@ -59,7 +59,7 @@ export default function Header() {
           <NotificationMenu />
           <LanguageToggle language={language} onLanguageChange={handleLanguageChange} />
           <ThemeToggle />
-          <UserMenu />
+          {/* <UserMenu /> */}
         </div>
       </nav>
     </header>
