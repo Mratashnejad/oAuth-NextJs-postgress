@@ -2,24 +2,14 @@
 import React, { useState, useEffect } from 'react';
 import { app } from '../../../configs/FireBaseConfig';
 import { useRouter } from 'next/navigation';
-
-//firebase
-import { getAuth, RecaptchaVerifier, signInWithPhoneNumber} from 'firebase/auth';
-//axios
+import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import axios from 'axios';
-//components :
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
 import { useToast } from '@/components/ui/use-toast';
-
-// jose for JWT handling
 import { jwtVerify, SignJWT } from 'jose';
-
-//token & cookie
-
 import Cookies from 'universal-cookie';
-
 
 const SECRET_KEY = process.env.NEXT_PUBLIC_SITE_KEY;
 
@@ -28,8 +18,6 @@ if (!SECRET_KEY) {
 }
 
 const cookies = new Cookies();
-
-
 
 export default function Login() {
     let isAuthunticated = false;
@@ -96,7 +84,6 @@ export default function Login() {
     };
 
     const handleSendOtp = async () => {
-
         if (!canResend) return;
 
         try {
@@ -122,7 +109,6 @@ export default function Login() {
                     description: 'You have requested OTP too many times. Please try again later.',
                 });
             } else {
-              console.log(error)
                 toast({
                     variant: "destructive",
                     title: 'Error sending OTP',
@@ -133,13 +119,13 @@ export default function Login() {
     };
 
     const generateToken = async (user) => {
-       const jwt =  await new SignJWT({ uid: user.uid, phoneNumber: user.phoneNumber })
+        const jwt = await new SignJWT({ uid: user.uid, phoneNumber: user.phoneNumber })
             .setProtectedHeader({ alg: 'HS256' })
             .setExpirationTime('1d')
             .sign(new TextEncoder().encode(SECRET_KEY));
         
-        cookies.set('jwt',jwt,{path:'/'})
-        console.log('Genereted token in gereteToken functions : ', jwt)
+        cookies.set('jwt', jwt, { path: '/' });
+        console.log('Generated token:', jwt);
         return jwt;
     };
 
@@ -147,9 +133,9 @@ export default function Login() {
         try {
             const { payload } = await jwtVerify(token, new TextEncoder().encode(SECRET_KEY));
             if (typeof payload === 'object' && 'uid' in payload && 'phoneNumber' in payload) {
-                return payload; // Type assertion for TypeScript
+                return payload;
             }
-            return payload; // If payload is of type User
+            return payload;
         } catch (error) {
             console.error('Error decoding token', error);
             return null;
@@ -165,72 +151,75 @@ export default function Login() {
             const uid = user.uid;
             const phoneNumber = user.phoneNumber;
 
-            const response = await axios.post(
-                '/api/users',
-                { uid, phoneNumber },
-                { headers: { 'Content-Type': 'application/json' } }
-            );
-            if (response.status === 201 || response.status === 200) {
-                const token = await generateToken({ uid, phoneNumber });
-                console.log('Generated JWT:', token);
-                toast({
-                    title: 'Logged in successfully',
-                    description: 'You are logged in to the system.',
-                });
-                setOtp('');
-                isAuthunticated = true;
-                router.push('/')
-              }else if(response.status.error === 409){
-                const token = await generateToken({ uid, phoneNumber });
-                console.log('Generated JWT:', token);
-                console.log('USER HAS REGISTERD')
-                toast({
-                    title: 'Logged in successfully',
-                    description: 'You are already registed to our system.',
-                    
-            });
-
-            setOtp('');
-            isAuthunticated = true;
-            router.push('/');
-          }
+            try {
+                // Check if the user exists
+                const existingUserResponse = await axios.get(`/api/users/${uid}`);
+                if (existingUserResponse.status === 200) {
+                    const token = await generateToken({ uid, phoneNumber });
+                    toast({
+                        title: 'Logged in successfully',
+                        description: 'You are logged in to the system.',
+                    });
+                    setOtp('');
+                    isAuthunticated = true;
+                    router.push('/');
+                }
+            } catch (error) {
+                if (error.response && error.response.status === 404) {
+                    // User does not exist, create a new user
+                    const createUserResponse = await axios.post(
+                        '/api/users',
+                        { uid, phoneNumber },
+                        { headers: { 'Content-Type': 'application/json' } }
+                    );
+                    if (createUserResponse.status === 201) {
+                        const token = await generateToken({ uid, phoneNumber });
+                        toast({
+                            title: 'Account created',
+                            description: 'Please complete your profile.',
+                        });
+                        setOtp('');
+                        isAuthunticated = true;
+                        router.push('/profile'); // Redirect to profile completion page
+                    }
+                } else {
+                    throw error;
+                }
+            }
         } catch (error) {
-
             if (error.response) {
-              setOtp('');
+                setOtp('');
                 toast({
                     title: 'Already registered',
                     description: 'You are already registered in the system.',
                 });
-            } else if(error.code === 'auth/code-expired'){
-              setOtp('');
-              toast({
-                  variant: "destructive",
-                  title: 'Error',
-                  description: 'your one Time passowrd Has been expired',
-              });
-              router.push('/auth/login')
-          }else {
-            console.error(error);
-            toast({
-              variant: "destructive",
-              title: 'Technical Issue ',
-              description: 'Some Thing is Wrong',
-          });
-          }
-            
+            } else if (error.code === 'auth/code-expired') {
+                setOtp('');
+                toast({
+                    variant: "destructive",
+                    title: 'Error',
+                    description: 'Your One Time Password has expired.',
+                });
+                router.push('/auth/login');
+            } else {
+                console.error(error);
+                toast({
+                    variant: "destructive",
+                    title: 'Technical Issue',
+                    description: 'Something went wrong.',
+                });
+            }
         } finally {
             setIsSubmitting(false);
         }
     };
 
     return (
-      <>
+        <>
             <div className="relative">
-            <div id='recaptcha-container'></div>
+                <div id='recaptcha-container'></div>
                 {!otpSent ? (
                     <Input
-
                         type="tel"
                         value={phoneNumber}
                         onChange={handlePhoneNumberChange}
@@ -239,7 +228,7 @@ export default function Login() {
                     />
                 ) : (
                     <InputOTP
-                      className='center'
+                        className='center'
                         maxLength={6}
                         value={otp}
                         onChange={handleOTPChange}>
@@ -259,10 +248,7 @@ export default function Login() {
                 >
                     {otpSent ? 'Submit OTP' : 'Send Code'}
                 </Button>
-                {/* {errorTimer > 0 && (
-                    <p className="text-center text-red-500 mt-2">Please wait {Math.floor(errorTimer / 60)}:{errorTimer % 60 < 10 ? `0${errorTimer % 60}` : errorTimer % 60} before trying again.</p>
-                )} */}
             </div>
         </>
     );
-}   
+}

@@ -12,12 +12,12 @@ try {
 
     const existingUser = await User.findOne({$or : [{uid},{phoneNumber}]})
     if(existingUser){
-      console.log("User already Exists",existingUser)
+      // console.log("User already Exists",existingUser)
       return  NextResponse.json({ message: 'User already exists' , user:existingUser }, { status: 409 })
     }
 
     const     user  =   await User.create({ uid , phoneNumber });
-    console.log('User created' , user)
+    // console.log('User created' , user)
     return  NextResponse.json({message:'User Created', user} , {status:201})
 
 

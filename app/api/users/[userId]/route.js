@@ -1,7 +1,7 @@
 import { connectToDB } from '../../../../utils/dbConnection';
 import User from '../../../../models/user/UserSchema'
 import { NextResponse } from 'next/server.js';
-import { useAuth } from '@/app/context/AuthContext.js';
+// import { useAuth } from '@/app/context/AuthContext.js';
 
 export async function PATCH(request,{params}) {
     console.log('Received request at /api/users/');
