@@ -36,7 +36,7 @@ export async function GET(request , {params}){
     console.log('Request method:', request.method);
     const {userId} = params;
     await connectToDB();
-    const user = await User.findOne({userId});
+    const user = await User.findById(userId);
     if(!user){
       return NextResponse.json({message:'User not Found'} , {status:404})
     }

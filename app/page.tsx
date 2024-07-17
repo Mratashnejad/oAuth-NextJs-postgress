@@ -24,31 +24,59 @@ export default function Home() {
         title: "Uh oh! Something went wrong.",
         description: "There was a problem with your request.",
         action: (<ToastAction altText="Try again" onClick={() => { refetch() }}>Try again</ToastAction>),
-      })
+      });
     }
-  }, [isError, refetch, toast]); // Only re-run the effect if isError or toast changes
+  }, [isError, refetch, toast]);
 
   if (isLoading) {
     return (
-      <div className="py-2">
+      <>
+      <div className="py-4">
         <ProgressBar isLoading={true} />
-       
-          <div className='flex justify-between'>
-            <SkeletonCard /> {/* Placeholder for CardMenu */}
-          </div>
+        <div className='flex justify-center'>
+          <SkeletonCard />
         </div>
+      </div>
+      <div className="py-4">
+      <ProgressBar isLoading={true} />
+      <div className='flex justify-center'>
+        <SkeletonCard />
+      </div>
+    </div>
+    <div className="py-4">
+        <ProgressBar isLoading={true} />
+        <div className='flex justify-center'>
+          <SkeletonCard />
+        </div>
+      </div>
+      </>
     );
   }
 
+  const sections = [
+    { title: "Top Developers" },
+    { title: "Top Mechanics" },
+    { title: "Top Lawyers" },
+    { title: "Top Doctors" },
+  ];
+
   return (
     <>
-      <section className='py-2'>
-        <div className="container justify-center items-center">        
-          <div className='flex justify-between'>
-            <CardMenu />
+      {sections.map((section, index) => (
+        <section key={index} className='py-4'>
+          <div className="container mx-auto">
+            <h2 className='text-2xl font-bold mb-4 text-left'>{section.title}</h2>
+            <div className='flex justify-center'>
+              <CardMenu />
+            </div>
+            <div className='flex justify-end'>
+              <button className='mt-4 text-blue-500 hover:text-blue-700 font-semibold'>
+                Show more
+              </button>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      ))}
     </>
   );
 }
