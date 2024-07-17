@@ -31,6 +31,8 @@ const UserDetails = ({ userId }) => {
           </div>
           <div>
             <h2 className="text-2xl font-bold text-white">{data?.user?.name}</h2>
+            <h2 className="text-2xl font-bold text-white">{data?.user?.family}</h2>
+
             <p className="text-gray-200">{data?.user?.email}</p>
           </div>
         </div>
@@ -46,6 +48,29 @@ const UserDetails = ({ userId }) => {
               <div>
                 <h2 className="text-lg font-bold text-gray-800">Phone Number</h2>
                 <p className="text-gray-600">{data?.user?.phoneNumber}</p>
+              </div>
+            </div>
+            
+          </div>
+          <div className="p-4 bg-white rounded-lg shadow-md">
+            <div className="flex items-center mb-4">
+              <div className="mr-4">
+                <FontAwesomeIcon icon={faPhone} className="text-purple-500 text-2xl" />
+              </div>
+              <div>
+                <h2 className="text-lg font-bold text-gray-800">Category</h2>
+                <p className="text-gray-600">{data?.user?.category}</p>
+              </div>
+            </div>
+          </div>
+          <div className="p-4 bg-white rounded-lg shadow-md">
+            <div className="flex items-center mb-4">
+              <div className="mr-4">
+                <FontAwesomeIcon icon={faPhone} className="text-purple-500 text-2xl" />
+              </div>
+              <div>
+                <h2 className="text-lg font-bold text-gray-800">Rate</h2>
+                <p className="text-gray-600">{data?.user?.rate?.rating}</p>
               </div>
             </div>
           </div>

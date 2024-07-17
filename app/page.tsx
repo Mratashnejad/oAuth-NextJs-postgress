@@ -67,6 +67,7 @@ export default function Home() {
           <div className="container mx-auto">
             <h2 className='text-2xl font-bold mb-4 text-left'>{section.title}</h2>
             <div className='flex justify-center'>
+              
               <CardMenu />
             </div>
             <div className='flex justify-end'>
