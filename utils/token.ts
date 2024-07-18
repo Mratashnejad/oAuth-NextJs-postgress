@@ -1,5 +1,6 @@
 import { jwtVerify, SignJWT } from 'jose';
 import { config } from 'dotenv';
+import cookies from 'js-cookie'; 
 
 config();
 
@@ -13,23 +14,26 @@ export interface User {
     uid: string;
     phoneNumber: string;
 }
+  //TOKEN
 
-export const generateToken = async (user: User): Promise<string> => {
+  const generateToken = async (user : User) => {
     const jwt = await new SignJWT({ uid: user.uid, phoneNumber: user.phoneNumber })
         .setProtectedHeader({ alg: 'HS256' })
         .setExpirationTime('1d')
         .sign(new TextEncoder().encode(SECRET_KEY));
-    // console.log('jwt:', jwt);
+    
+    cookies.set('jwt', jwt, { path: '/' });
+    console.log('Generated token:', jwt);
     return jwt;
 };
 
-export const decodeToken = async (token: string): Promise<User | null> => {
+const decodeToken = async (token : string) => {
     try {
         const { payload } = await jwtVerify(token, new TextEncoder().encode(SECRET_KEY));
         if (typeof payload === 'object' && 'uid' in payload && 'phoneNumber' in payload) {
-            return payload as User; // Type assertion for TypeScript
+            return payload;
         }
-        return payload as User; // If payload is of type User
+        return payload;
     } catch (error) {
         console.error('Error decoding token', error);
         return null;

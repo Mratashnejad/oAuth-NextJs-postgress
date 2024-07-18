@@ -3,7 +3,7 @@ import { LanguageToggle } from './language-toggle';
 import SearchInput from '@/components/searchInput';
 import NotificationMenu from '@/components/notificationMenu';
 import PostJobButton from '@/components/postJobButton';
-// import UserMenu from './userMenu';
+import UserMenu from './userMenu';
 import React, { useState } from 'react';
 import Link from 'next/link';
 
@@ -16,7 +16,11 @@ import {
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
 
-export default function Header() {
+interface HeaderProps {
+  userId: any;
+}
+
+const Header: React.FC<HeaderProps> = ({ userId }) => {
   const [language, setLanguage] = useState('English'); // Default language is English
 
   const handleLanguageChange = (newLanguage: string) => {
@@ -59,9 +63,11 @@ export default function Header() {
           <NotificationMenu />
           <LanguageToggle language={language} onLanguageChange={handleLanguageChange} />
           <ThemeToggle />
-          {/* <UserMenu /> */}
+          <UserMenu userId={userId} />
         </div>
       </nav>
     </header>
   );
-}
+};
+
+export default Header;
