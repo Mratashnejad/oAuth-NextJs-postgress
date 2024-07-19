@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { useAuth } from '@/app/context/AuthContext';
+import { useAuth } from '@/app/context/AuthContext.js';
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import axios from 'axios';
 import { UserData, UserAddress } from '@/types/types';
@@ -10,7 +11,7 @@ import UserAddressTab from '@/components/dashboard/UserAddressTab';
 import EmergencyContactTab from '@/components/dashboard/EmergencyContactTab';
 
 export default function Settings() {
-  const { user } = useAuth();
+  const {user ,loading } = useAuth();
   const [userData, setUserData] = useState<UserData | null>(null);
   const [userAddresses, setUserAddresses] = useState<UserAddress[]>([]);
   const [addAddress, setAddAddress] = useState(false);

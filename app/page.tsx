@@ -1,6 +1,5 @@
 'use client';
 import React, { useEffect } from 'react';
-import { SearchMenu } from '@/components/searchMenu';
 import { useGetUserData } from './hooks/useGetUserData';
 import ProgressBar from '@/components/ProgressBar';
 import { useRouter } from 'next/navigation';
@@ -16,6 +15,8 @@ export default function Home() {
   const { toast } = useToast();
   const { data, isLoading, isError, refetch } = useGetUserData();
   const router = useRouter();
+
+
 
   useEffect(() => {
     if (isError) {
@@ -62,12 +63,15 @@ export default function Home() {
 
   return (
     <>
+    <div className='flex justify-center'><ImageMenu/></div>
       {sections.map((section, index) => (
         <section key={index} className='py-4'>
           <div className="container mx-auto">
             <h2 className='text-2xl font-bold mb-4 text-left'>{section.title}</h2>
             <div className='flex justify-center'>
-              
+            <div>
+        </div>
+          
               <CardMenu />
             </div>
             <div className='flex justify-end'>
