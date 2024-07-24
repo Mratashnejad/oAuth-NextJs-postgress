@@ -13,7 +13,7 @@ export default function Nav() {
         Gtnelu
         </a>
       </div>
-      <Link href='/profile'>Profile</Link>
+      <Link href='/dashboard'>Dashboard</Link>
     </nav>
   </header>
   );
