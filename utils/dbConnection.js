@@ -12,7 +12,6 @@ export const connectToDB = async () => {
         console.log('MongoDB is already connected');
         return mongoose.connection;
     }
-
     try {
         await mongoose.connect(process.env.DATABASE_URI, {
             dbName: 'Gtnelu_DB'
