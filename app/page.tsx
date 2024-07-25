@@ -1,9 +1,11 @@
+import { SignInButton } from '@/components/sign-in-button';
 import React from 'react';
 
 export default function Home() {
   return (
-   <main className='flex min-h-screen flex-col items-center justify-between p-24'>
+    <div className="home-page">
     <h1>Gtnelu</h1>
-   </main> 
+    <div><SignInButton className='signin-button'/></div>
+    </div>
   );
 }

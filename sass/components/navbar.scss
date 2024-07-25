@@ -1,0 +1,27 @@
+.navbar {
+    padding: 0.74rem 1.25rem;
+    font-size: 1rem;
+    background-color: hsl(236, 45%, 37%);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .navbar-items {
+        display: flex;
+        gap: 0.2rem;
+
+        .navbar-item {
+            padding: 0.02rem 0.5rem;
+            border-radius: 3px;
+            transition: background-color 0.1s ;
+
+            &:hover {
+                background-color: hsla(124, 73%, 28%, 0.986);
+            }
+
+            &.active {
+                background-color: hsl(139, 88%, 16%);
+            }
+        }
+    }
+}

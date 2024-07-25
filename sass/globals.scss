@@ -1,2 +1,16 @@
-@use '@/sass/base/base.scss';
-@use '@/sass/base/typography.scss';
+@use "@/sass/base/base.scss";
+@use "@/sass/base/typography.scss";
+
+@use "@/sass/components/signin-button.scss";
+@use "@/sass/components/signout-button.scss";
+@use "@/sass/components/navbar.scss";
+
+
+
+
+@use "@/sass/pages/admin.scss";
+@use "@/sass/pages/home.scss";
+@use "@/sass/pages/signin.scss";
+@use "@/sass/pages/auth-error.scss";
+@use "@/sass/pages/auth-success.scss";
+@use "@/sass/pages/dashboard.scss";
