@@ -1,0 +1,38 @@
+.auth-success-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #F4F7F9; // Light background color for a clean look
+
+    .auth-success-card {
+        width: 22rem; // Consistent width for a balanced appearance
+        padding: 2.5rem; // Generous padding for a spacious feel
+        border-radius: 0.75rem; // Rounded corners for a modern touch
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); // Subtle shadow for depth
+        background-color: #FFFFFF; // White background for the card
+        text-align: center;
+        max-width: 90%; // Ensure card fits well on different screen sizes
+
+        .auth-success {
+            display: flex; // Flexbox for better alignment and spacing
+            align-items: center;
+            justify-content: center;
+            color: #28A745; // Green color for success message
+            background-color: #D4EDDA; // Light green background for success section
+            border-radius: 0.5rem; // Rounded corners for the success section
+            padding: 1rem;
+            margin-top: 1rem; // Space above the success section
+
+            .icon {
+                margin-right: 0.75rem; // Space between icon and text
+                font-size: 1.5rem; // Larger icon size for better visibility
+            }
+
+            .message {
+                font-size: 1rem; // Font size for the success message
+                font-weight: bold; // Bold text for emphasis
+            }
+        }
+    }
+}

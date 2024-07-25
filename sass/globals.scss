@@ -1,13 +1,18 @@
+//base root pages
 @use "@/sass/base/base.scss";
 @use "@/sass/base/typography.scss";
+
+
+//components
 
 @use "@/sass/components/signin-button.scss";
 @use "@/sass/components/signout-button.scss";
 @use "@/sass/components/navbar.scss";
+@use "@/sass/components/footer.scss";
 
 
 
-
+//pages
 @use "@/sass/pages/admin.scss";
 @use "@/sass/pages/home.scss";
 @use "@/sass/pages/signin.scss";

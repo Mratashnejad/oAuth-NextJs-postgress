@@ -1,100 +1,109 @@
 .signin-page {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    background-color: hsl(0, 0%, 97.5%);
-  
-    .signin-card {
-      width: 20rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #F4F7F9; // Light background color to match the palette
+
+  .signin-card {
+      width: 22rem; // Increased width for better readability
       padding: 2rem;
-      border-radius: 1rem;
-      box-shadow: 0 4px 8px hsl(0, 0%, 70%);
-      background-color: white;
+      border-radius: 0.75rem; // Slightly rounded corners
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); // Subtle shadow for depth
+      background-color: #FFFFFF; // White background for the card
       text-align: center;
-  
+
       .form-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-  
-        .email-signin-form {
           display: flex;
           flex-direction: column;
-          width: 100%;
-  
-          .form-input {
-            font-size: medium;
-            padding: 1rem;
-            border: solid;
-            border-radius: 1rem;
-            border-color: hsl(0, 0%, 70%);
-          }
-  
-          .submit-button {
-            padding: 1rem;
-            margin-top: 1rem;
-            font-weight: bold;
-            color: white;
-            background-color: hsl(208, 86%, 48%);
-            border: solid;
-            border-radius: 1rem;
-            border-color: hsl(208, 86%, 48%);
-            cursor: pointer;
-            font-size: 1rem;
-  
-            &:hover {
-              background-color: hsl(208, 86%, 58%);
-            }
-          }
-        }
-  
-        .divider {
-          display: flex;
           align-items: center;
-          width: 75%;
-          padding: 1.5rem;
-  
-          .line {
-            flex-grow: 1;
-            height: 1px;
-            background-color: hsl(0, 0%, 70%);
+
+          .email-signin-form {
+              display: flex;
+              flex-direction: column;
+              width: 100%;
+              gap: 1rem; // Gap between form elements
+
+              .form-input {
+                  font-size: 0.9rem; // Smaller font size for better fit
+                  padding: 0.75rem;
+                  border: 1px solid #D1D5DB; // Lighter border color
+                  border-radius: 0.5rem; // Rounded corners
+                  background-color: #F9FAFB; // Very light background for input
+                  transition: border-color 0.3s; // Smooth transition for border color
+
+                  &:focus {
+                      border-color: #08C076; // Primary color on focus
+                      outline: none; // Remove default outline
+                  }
+              }
+
+              .submit-button {
+                  padding: 0.75rem;
+                  margin-top: 1rem;
+                  font-weight: bold;
+                  color: #FFFFFF; // White text color
+                  background-color: #08C076; // Primary color for the button
+                  border: none; // Remove default border
+                  border-radius: 0.5rem; // Rounded corners
+                  cursor: pointer;
+                  font-size: 0.9rem; // Smaller font size
+
+                  &:hover {
+                      background-color: #1D366F; // Darker color on hover
+                  }
+              }
           }
-  
-          .or {
-            padding: 0 1rem;
-            color: hsl(0, 0%, 60%);
+
+          .divider {
+              display: flex;
+              align-items: center;
+              width: 80%; // Increased width for better alignment
+              margin: 1.5rem 0;
+
+              .line {
+                  flex-grow: 1;
+                  height: 1px;
+                  background-color: #D1D5DB; // Light gray line color
+              }
+
+              .or {
+                  padding: 0 1rem;
+                  color: #9CA3AF; // Lighter gray color
+                  font-size: 0.9rem; // Smaller font size
+              }
           }
-        }
-  
-        .social-logins {
-          display: flex;
-          flex-direction: column;
-          width: 100%;
-  
-          .google {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-            font-size: medium;
-            font-weight: bold;
-            border: solid;
-            border-radius: 1rem;
-            background-color: transparent;
-  
-            .google-icon {
-              margin-right: 1.25rem;
-              width: 1.5rem;
-              height: 1.5rem;
-            }
-  
-            &:hover {
-              cursor: pointer;
-              background-color: hsl(0, 0%, 97.5%);
-            }
+
+          .social-logins {
+              display: flex;
+              flex-direction: column;
+              width: 100%;
+              gap: 1rem; // Gap between social login options
+
+              .google {
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  padding: 0.75rem;
+                  font-size: 0.9rem; // Smaller font size
+                  font-weight: bold;
+                  border: 1px solid #D1D5DB; // Light border
+                  border-radius: 0.5rem; // Rounded corners
+                  background-color: #FFFFFF; // White background
+                  transition: background-color 0.3s; // Smooth transition for background color
+
+                  .google-icon {
+                      margin-right: 1rem; // Adjusted margin
+                      width: 1.5rem;
+                      height: 1.5rem;
+                  }
+
+                  &:hover {
+                      cursor: pointer;
+                      background-color: #F4F7F9; // Light background on hover
+                  }
+              }
           }
-        }
       }
-    }
   }
+}

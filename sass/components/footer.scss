@@ -1,0 +1,47 @@
+.footer {
+    padding: 0.8rem 1.5rem; // Adjusted padding for a more refined look
+    font-size: 0.9rem; // Smaller font size for a more elegant appearance
+    background-color: #1D366F; // Dark accent color
+    color: #FFFFFF; // White text color for contrast
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1); // Subtle shadow for depth
+
+    .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .footer-items {
+        display: flex;
+        gap: 1rem; // Adjusted gap for better spacing
+
+        .footer-item {
+            padding: 0.5rem 1rem;
+            border-radius: 3px; // Rounded corners
+            transition: background-color 0.3s, color 0.3s;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #08C076; // Primary color for hover
+                color: #FFFFFF; // White text color on hover
+            }
+
+            &.active {
+                background-color: #08C076; // Primary color for active state
+            }
+
+            &.copyright {
+                cursor: default; // Non-clickable text
+                color: #FFFFFF; // White text color for contrast
+            }
+        }
+    }
+}

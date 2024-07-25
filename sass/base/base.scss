@@ -1,10 +1,43 @@
 :root {
+    /* Define color variables */
+    --primary-color: #08C076; // Primary color
+    --secondary-color: #FFFFFF; // Secondary color
+    --accent-color-1: #1D366F; // Accent color 1
+    --accent-color-2: #1D366F; // Accent color 2
+    --background-color: #F4F7F9; // Background color for light theme
+    --text-color: #333333; // Default text color
+    --error-color: #D9534F; // Error color
+    --success-color: #28A745; // Success color
 
-    font-family: Inter , system-ui , helvetica ,arial , sans-serif;
-    line-height: 1.5;
+    /* Font and Typography */
+    --font-family: 'Inter', system-ui, Helvetica, Arial, sans-serif;
+    --font-size-base: 1rem; // Base font size
+    --line-height: 1.5; // Base line height
 }
 
 body {
-    margin : 0;
-    min-width: 320;
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height);
+    margin: 0;
+    min-width: 320px; // Ensures a minimum width for better responsiveness
+    color: var(--text-color); // Default text color
+    background-color: var(--background-color); // Background color for the body
+}
+
+a {
+    color: var(--primary-color); // Primary color for links
+    text-decoration: none; // Remove underline from links
+
+    &:hover {
+        text-decoration: underline; // Add underline on hover for better UX
+    }
+}
+
+button {
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    border: none;
+    border-radius: 0.25rem; // Consistent border radius for buttons
+    cursor: pointer;
 }

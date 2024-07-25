@@ -1,7 +1,75 @@
 .home-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #F4F7F9; // Light background color to match the rest of the site
+  text-align: center; // Center text for better alignment
+
+  .hero-section {
+      max-width: 800px; // Limit the width for better readability
+      padding: 2rem;
+      background-color: #FFFFFF; // White background for the hero section
+      border-radius: 0.75rem; // Rounded corners for a softer look
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); // Subtle shadow for depth
+      margin-bottom: 2rem; // Space below the hero section
+
+      h1 {
+          font-size: 2.5rem; // Larger font size for the main heading
+          color: #1D366F; // Dark accent color for the heading
+          margin-bottom: 1rem; // Space below the heading
+      }
+
+      p {
+          font-size: 1rem; // Standard font size for paragraphs
+          color: #6B7280; // Medium gray color for text
+          margin-bottom: 2rem; // Space below the paragraph
+      }
+
+      .cta-button {
+          padding: 0.75rem 1.5rem; // Comfortable padding for the button
+          border-radius: 0.5rem; // Rounded corners
+          background-color: #08C076; // Primary color for the button
+          color: #FFFFFF; // White text color
+          border: none;
+          font-size: 1rem; // Standard font size
+          font-weight: bold;
+          cursor: pointer;
+          transition: background-color 0.3s; // Smooth transition for hover effect
+
+          &:hover {
+              background-color: #1D366F; // Darker color on hover
+          }
+      }
   }
+
+  .features {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem; // Space between feature items
+      padding: 2rem;
+      max-width: 1200px; // Limit width for better alignment
+
+      .feature-item {
+          width: 300px; // Fixed width for feature items
+          padding: 1.5rem;
+          border-radius: 0.75rem; // Rounded corners
+          background-color: #FFFFFF; // White background for feature items
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); // Subtle shadow for depth
+          text-align: center;
+
+          h2 {
+              font-size: 1.5rem; // Font size for feature headings
+              color: #1D366F; // Dark accent color
+              margin-bottom: 0.5rem; // Space below the heading
+          }
+
+          p {
+              font-size: 0.9rem; // Smaller font size for descriptions
+              color: #6B7280; // Medium gray color
+          }
+      }
+  }
+}

@@ -1,27 +1,52 @@
 .navbar {
-    padding: 0.74rem 1.25rem;
-    font-size: 1rem;
-    background-color: hsl(236, 45%, 37%);
-    color: white;
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+    background-color: #1D366F;
+    color: #FFFFFF;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    .navbar-items {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+
+    .navbar-container {
         display: flex;
-        gap: 0.2rem;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
 
-        .navbar-item {
-            padding: 0.02rem 0.5rem;
-            border-radius: 3px;
-            transition: background-color 0.1s ;
+    .navbar-left {
+        display: flex;
+        align-items: center;
+        gap: 1rem; // Adjusted gap for better spacing
+    }
 
-            &:hover {
-                background-color: hsla(124, 73%, 28%, 0.986);
-            }
+    .navbar-center {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+    }
 
-            &.active {
-                background-color: hsl(139, 88%, 16%);
-            }
+    .navbar-right {
+        display: flex;
+        align-items: center;
+    }
+
+    .navbar-item {
+        padding: 0.5rem 1rem;
+        border-radius: 3px;
+        transition: background-color 0.3s, color 0.3s;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #08C076; // Primary color for hover
+            color: #FFFFFF; // White text color on hover
+        }
+
+        &.active {
+            background-color: #08C076; // Primary color for active state
         }
     }
 }
