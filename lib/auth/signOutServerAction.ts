@@ -1,7 +1,10 @@
 'use server';
+
+import { signOut } from "@/lib/auth/authConfig"
+
 export const handleSignOut = async()=>{
     try{
-        console.log('SignOut')
+       signOut()
     }catch(error){
         throw error;
     }

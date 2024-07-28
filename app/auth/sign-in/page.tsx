@@ -1,9 +1,10 @@
 import { redirect } from "next/navigation"
 import { SignInPage } from "@/app/auth/sign-in/signin";
+import { checkIsAuthenticated } from "@/lib/auth/checkIsAuthenticated";
 
 const SignIn: React.FC = async()=>{
-    //TODO: check if user is authenticated
-    const isAuthenticated = false;
+
+    const isAuthenticated = await checkIsAuthenticated();
     if(isAuthenticated){
         redirect('/dashboard')
     }else{
