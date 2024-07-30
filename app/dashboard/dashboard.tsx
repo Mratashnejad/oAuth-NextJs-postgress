@@ -6,17 +6,24 @@ import { handleGoogleSignIn } from "@/lib/auth/googleSignInServerAction";
 import { unlinkGoogleAccount } from "@/lib/auth/unLinkGoogleAccountServerAction";
 import { useEffect, useState } from "react";
 import { useSession } from 'next-auth/react';
+import { getUserRole } from "@/lib/auth/getUserRoleServerAction";
 
 export const DashboardPage: React.FC = () => {
     const [isAccountLinked, setIsAccountLinked] = useState(false);
     const [username , setUsername] = useState("");
+    const [role , setRole] = useState("");
     const {update} = useSession();
 
     useEffect(() => {
+       
         const userInfo = async()=>{
             const name = await getUserName();
             if(name){
                 setUsername(name);
+            }
+            const role = await getUserRole();
+            if(role){
+                setRole(role)
             }
         }
         const accountLinkStatus = async () => {
@@ -36,9 +43,11 @@ export const DashboardPage: React.FC = () => {
             <div className="dashboard-page">
                 <h2>Dashboard Page</h2>
                 <div className="dashboard-card">
-                    <div className="name">{username}</div>
+                    <div className="role">Role : {role}</div>
+                    <div className="name">{username} </div>
                     <div className="field-input-container">
                         <input type="text"
+                        className="field-input"
                         placeholder="Enter name" 
                         value={username}
                         onChange={(event)=> setUsername(event.target.value)}/>
