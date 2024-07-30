@@ -1,12 +1,12 @@
 .dashboard-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  background-color: #F4F7F9; // Light background color for the page
-
-  .dashboard-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #F4F7F9; // Light background color for the page
+  
+    .dashboard-card {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -17,57 +17,80 @@
       max-width: 600px; // Limit the width for better readability
       width: 100%;
       margin: 1rem; // Add margin around the card for spacing
-
+  
       .name {
-          font-size: 1.5rem; // Larger font size for names
-          font-weight: bold;
-          color: #1D366F; // Dark accent color for the name
-          margin-bottom: 1rem; // Space below the name
+        font-size: 1.5rem; // Larger font size for names
+        font-weight: bold;
+        color: #1D366F; // Dark accent color for the name
+        margin-bottom: 1rem; // Space below the name
       }
-
+  
       .field-input-container {
+        width: 100%;
+        margin: 1rem 0; // Uniform margin around input fields
+  
+        .field-input {
+          font-size: 0.9rem; // Slightly smaller font size for inputs
           width: 100%;
-          margin: 1rem 0; // Uniform margin around input fields
-
-          .field-input {
-              font-size: 0.9rem; // Slightly smaller font size for inputs
-              width: 100%;
-              padding: 0.75rem; // Adjusted padding
-              border: 1px solid #D1D5DB; // Light border color
-              border-radius: 0.5rem; // Rounded corners
-              background-color: #F9FAFB; // Very light background for input
-              box-sizing: border-box; // Ensure padding and border are included in width
-
-              &:focus {
-                  border-color: #08C076; // Primary color on focus
-                  outline: none; // Remove default outline
-              }
-          }
-      }
-
-      .update-field-button, .link-account-button {
-          width: 100%;
-          padding: 0.75rem;
-          margin-top: 1rem;
-          font-weight: bold;
-          color: #FFFFFF; // White text color
-          border: none; // Remove default border
+          padding: 0.75rem; // Adjusted padding
+          border: 1px solid #D1D5DB; // Light border color
           border-radius: 0.5rem; // Rounded corners
-          font-size: 0.9rem; // Adjusted font size for consistency
-          cursor: pointer;
-          transition: background-color 0.3s; // Smooth transition for hover effect
-
-          &:hover {
-              background-color: #1D366F; // Use accent color for hover on both buttons
+          background-color: #F9FAFB; // Very light background for input
+          box-sizing: border-box; // Ensure padding and border are included in width
+  
+          &:focus {
+            border-color: #08C076; // Primary color on focus
+            outline: none; // Remove default outline
           }
+        }
       }
-
-      .update-field-button {
-          background-color: #F4B400; // Custom color for update button
-      }
-
+  
+      .update-field-button,
       .link-account-button {
-          background-color: #08C076; // Primary color for link account button
+        width: 100%;
+        padding: 0.75rem;
+        margin-top: 1rem;
+        font-weight: bold;
+        color: #FFFFFF; // White text color
+        border: none; // Remove default border
+        border-radius: 0.5rem; // Rounded corners
+        font-size: 0.9rem; // Adjusted font size for consistency
+        cursor: pointer;
+        transition: background-color 0.3s; // Smooth transition for hover effect
+  
+        &:hover {
+          background-color: #1D366F; // Use accent color for hover on both buttons
+        }
       }
+  
+      .link-account-button {
+        background-color: #08C076; // Primary color for link account button
+  
+        &.linked {
+          background-color: #f44336; // Red color for unlink button
+        }
+      }
+  
+      .update-field-button {
+        background-color: #F4B400; // Custom color for update button
+      }
+  
+      .signout-button {
+        margin-top: 1rem; // Space above the sign-out button
+        background-color: #E57373; // Color for the sign-out button
+      }
+    }
   }
-}
+  
+  // Responsive design for smaller screens
+  @media (max-width: 768px) {
+    .dashboard-page {
+      padding: 1rem; // Add padding on smaller screens
+    }
+  
+    .dashboard-card {
+      width: 100%; // Full width on smaller screens
+      margin: 0; // Remove margin on smaller screens
+    }
+  }
+  

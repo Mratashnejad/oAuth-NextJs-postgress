@@ -3,36 +3,72 @@
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background-color: #F4F7F9; // Light background color for a clean look
-
+    background-color: hsl(0, 0%, 97.5%);
+  
     .auth-success-card {
-        width: 22rem; // Consistent width for a balanced appearance
-        padding: 2.5rem; // Generous padding for a spacious feel
-        border-radius: 0.75rem; // Rounded corners for a modern touch
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); // Subtle shadow for depth
-        background-color: #FFFFFF; // White background for the card
-        text-align: center;
-        max-width: 90%; // Ensure card fits well on different screen sizes
-
-        .auth-success {
-            display: flex; // Flexbox for better alignment and spacing
-            align-items: center;
-            justify-content: center;
-            color: #28A745; // Green color for success message
-            background-color: #D4EDDA; // Light green background for success section
-            border-radius: 0.5rem; // Rounded corners for the success section
-            padding: 1rem;
-            margin-top: 1rem; // Space above the success section
-
-            .icon {
-                margin-right: 0.75rem; // Space between icon and text
-                font-size: 1.5rem; // Larger icon size for better visibility
-            }
-
-            .message {
-                font-size: 1rem; // Font size for the success message
-                font-weight: bold; // Bold text for emphasis
-            }
+      width: 28rem;
+      padding: 2rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      background-color: #FFFFFF;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  
+      .auth-success {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: #1D366F;
+        background-color: #E8F5E9; // Light green background
+        border-radius: 1.5rem;
+        padding: 2rem;
+        width: 100%;
+        box-sizing: border-box;
+  
+        .icon {
+          font-size: 4rem;
+          color: #4CAF50; // Green color for success
+          margin-bottom: 1rem;
         }
+  
+        h1 {
+          font-size: 2rem;
+          margin: 0;
+          color: #1D366F;
+          line-height: 1.2;
+        }
+  
+        p {
+          font-size: 1.1rem;
+          color: hsl(0, 0%, 60%);
+          line-height: 1.6;
+          max-width: 90%;
+          margin: 1rem 0 0;
+        }
+      }
+  
+      .back-link {
+        margin-top: 1.5rem;
+  
+        p {
+          font-size: 1.1rem;
+          color: hsl(0, 0%, 60%);
+  
+          .link-text {
+            color: #08C076;
+            font-weight: bold;
+            text-decoration: none;
+            transition: color 0.3s;
+  
+            &:hover {
+              color: #1D366F;
+              text-decoration: underline;
+            }
+          }
+        }
+      }
     }
-}
+  }
+  

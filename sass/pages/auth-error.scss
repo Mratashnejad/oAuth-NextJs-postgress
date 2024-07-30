@@ -1,38 +1,82 @@
 .auth-error-page {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  background-color: #F4F7F9; // Light background color for a clean look
-
-  .auth-error-card {
-      width: 22rem; // Slightly wider card for better readability
-      padding: 2.5rem; // Increased padding for a more spacious look
-      border-radius: 0.75rem; // Reduced border-radius for a modern touch
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); // Subtle shadow for depth
-      background-color: #FFFFFF; // White background for the card
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: hsl(0, 0%, 97.5%);
+  
+    .auth-error-card {
+      width: 28rem;
+      padding: 2rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      background-color: #FFFFFF;
       text-align: center;
-      max-width: 90%; // Ensure card fits well on different screen sizes
-
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  
       .auth-error {
-          display: flex; // Flexbox for better alignment and spacing
-          align-items: center;
-          justify-content: center;
-          color: #D9534F; // Accent color for error text
-          background-color: #FBE6E6; // Light red background for error section
-          border-radius: 0.5rem; // Rounded corners for the error section
-          padding: 1rem;
-          margin-top: 1rem; // Space above the error section
-
-          .icon {
-              margin-right: 0.75rem; // Space between icon and text
-              font-size: 1.5rem; // Larger icon size for better visibility
-          }
-
-          .message {
-              font-size: 1rem; // Font size for the error message
-              font-weight: bold; // Bold text for emphasis
-          }
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: #1D366F;
+        background-color: #F4F8FC; // Light blue background
+        border-radius: 1.5rem;
+        padding: 2rem;
+        width: 100%;
+        box-sizing: border-box;
+  
+        .icon {
+          font-size: 4rem;
+          color: #E94E77;
+          margin-bottom: 1rem;
+        }
+  
+        h1 {
+          font-size: 1.8rem;
+          margin: 0;
+          white-space: nowrap;
+          color: #1D366F;
+          line-height: 1.2;
+        }
+  
+        h5 {
+          font-size: 1.2rem;
+          margin: 0.5rem 0;
+          color: #1D366F;
+          font-weight: 500;
+        }
+  
+        p {
+          font-size: 1.1rem;
+          color: hsl(0, 0%, 60%);
+          line-height: 1.6;
+          max-width: 90%;
+          margin: 1rem 0 0;
+        }
       }
+  
+      .back-link {
+        margin-top: 1.5rem;
+  
+        p {
+          font-size: 1.1rem;
+          color: hsl(0, 0%, 60%);
+  
+          .link-text {
+            color: #08C076;
+            font-weight: bold;
+            text-decoration: none;
+            transition: color 0.3s;
+  
+            &:hover {
+              color: #1D366F;
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+    }
   }
-}
+  
