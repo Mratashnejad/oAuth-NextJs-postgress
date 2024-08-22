@@ -8,7 +8,7 @@ const Footer = () => {
   return (
     <div className='footer'>
       <div className="container">
-        <div className="footer-item copyright">© 2024 Gtnelu. All Rights Reserved.</div>
+        <div className="footer-item copyright">© 2024 Ali Atish. All Rights Reserved.</div>
         <div className="footer-items">
           <div className="footer-item" style={{ cursor:'pointer'}} onClick={()=>{router.push('/helpCenter')}}>Help Center</div>
 

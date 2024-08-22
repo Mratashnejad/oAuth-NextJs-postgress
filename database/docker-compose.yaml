@@ -4,7 +4,7 @@ services:
     container_name: postgres
     restart : always
     environment:
-      POSTGRES_DB: gtnelu_db
+      POSTGRES_DB: Aliatish_db
       POSTGRES_USER: user
       POSTGRES_PASSWORD: JwU52#%9JMu{
     ports: 
